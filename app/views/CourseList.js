@@ -1,17 +1,32 @@
 import React, {Component} from 'react';
-import { ScrollView, Text, StyleSheet } from 'react-native';
+import { ScrollView, Text, StyleSheet, View } from 'react-native';
+import ajax from '../ajax';
 
 
 class CourseList extends Component {
+    async componentDidMount() {
+        const courses = await ajax.fetchInitialCourses();
+        console.log(courses);
+    }
     render() {
         return (
-            <ScrollView>
+            <View style={styles.container}>
+                <Text style={styles.header}> Course List </Text>
                 <Text style={styles.textFirst}> COURSE LIST </Text>
-            </ScrollView>
+            </View>
         );
     }
 }
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+
+    },
+    header: {
+        fontSize: 40,
+    },
     textFirst: {
         fontSize: 50,
         fontWeight: 'bold',
