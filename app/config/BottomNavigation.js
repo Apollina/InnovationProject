@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from 'react-navigation';
 import CourseList from '../views/CourseList';
 import LevelMap from '../views/LevelMap';
 import ProfilePage from '../views/ProfilePage';
+import ChatbotPage from '../views/ChatbotPage';
 
 export const TabNav = createBottomTabNavigator ({
     CourseList: {
@@ -24,11 +25,16 @@ export const TabNav = createBottomTabNavigator ({
         navigationOptions: ({ navigation }) => ({
             title: "Profile",
         })
-    }
+    },
+	ChatbotPage: {
+        screen: ChatbotPage,
+        navigationOptions: { tabBarVisible: false,  }
+    },
 }, {
     tabBarPosition: 'bottom',
     swipeEnabled: true,
     tabBarOptions: {
+		
         activeTintColor: '#f2f2f2',
         activeBackgroundColor: '#2EC4B6',
         inactiveTintColor: '#666',
