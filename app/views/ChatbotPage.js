@@ -21,6 +21,7 @@ const steps = [
   {
     id: '3',
 	user: true,
+	validator: ({ currentStep, steps})  => 'Input number only',
     trigger: '4',
   },
   {
@@ -51,6 +52,7 @@ const steps = [
   ],
   },
 ];
+
 
 type Props = {};
 class ChatbotPage extends Component<Props> {
