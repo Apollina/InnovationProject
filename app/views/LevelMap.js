@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import { ScrollView, Text, StyleSheet } from 'react-native';
-
+import { ScrollView, Text } from 'react-native';
+import styles from '../styles';
 
 class LevelMap extends Component {
     render() {
@@ -11,14 +11,6 @@ class LevelMap extends Component {
         );
     }
 }
-const styles = StyleSheet.create({
-    textFirst: {
-        fontSize: 50,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginTop: 300,
-    },
-});
 
 export default LevelMap;
 
