@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import { ScrollView, Text, StyleSheet, View } from 'react-native';
+import { Text, View } from 'react-native';
 import ajax from '../ajax';
-
+import styles from '../styles';
 
 class CourseList extends Component {
     async componentDidMount() {
@@ -17,23 +17,5 @@ class CourseList extends Component {
         );
     }
 }
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-
-    },
-    header: {
-        fontSize: 40,
-    },
-    textFirst: {
-        fontSize: 50,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginTop: 300,
-},
-});
 
 export default CourseList;
-

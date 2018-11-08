@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
-import { ScrollView, StyleSheet, Image, View, TextInput } from 'react-native'
+import { ScrollView, Image, View, TextInput } from 'react-native'
 import { Text, Container, Button } from 'native-base'
 import * as Progress from 'react-native-progress'
 import DatePicker from 'react-native-datepicker'
+import styles from '../styles';
 
 import AppHeader from '../components/AppHeader'
 
@@ -63,8 +64,7 @@ class ProfilePage extends Component {
 
     render() {
         return ( 
-            <Container>
-                <AppHeader headerTitle='Profile' />  
+            <Container style={styles.pageContainer}>
                 <ScrollView style={styles.viewWrapper}>
                     {!this.state.showEditing &&  
                         <View >
@@ -168,79 +168,6 @@ class ProfilePage extends Component {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    profilePicture: {
-        marginRight: 10,
-        height: 90,
-        width: 160,
-        borderWidth: 1,
-        borderRadius: 15,
-        borderColor: 'black'
-    },
-    flex1: {
-        flex: 1,
-        alignItems: 'center'
-    },
-    flexCenter: {
-        justifyContent: 'center'
-    },
-    infoWrapper: {
-        flex: 1,
-        flexDirection: 'row',
-        marginVertical: 10,
-    },
-    textWrapper: {
-        flexDirection: 'column'
-    },
-    viewWrapper: {
-        margin: 20
-    },
-    inputWrapper: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 10
-    },
-    coursesWrapper: {
-        marginLeft: 10,
-    },
-    userName: {
-        fontSize: 40
-    },
-    H1: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 10,
-    },
-    H2: {
-        fontSize: 15,
-        fontWeight: 'bold',
-        marginVertical: 8,
-    },
-    courseHeader: {
-        fontWeight: 'bold',
-        marginTop: 5
-    },
-    inputHeader: {
-        fontWeight: 'bold',
-        fontSize: 20
-    },
-    smallText: {
-        fontSize: 15
-    },
-    reallySmallText: {
-        fontSize: 5
-    },
-    progressBar: {
-        marginTop: 5,
-        marginBottom: 15
-    },
-    editButton: {
-        marginVertical: 15,
-        alignSelf: "center"
-    }
-});
 
 export default ProfilePage;
 
