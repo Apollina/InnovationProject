@@ -21,7 +21,12 @@ const steps = [
   {
     id: '3',
 	user: true,
-	validator: ({ currentStep, steps})  => 'Input number only',
+      validator: (value) => {
+          if (isNaN(value)) {
+              return 'Input should be a number';
+          }
+          return true;
+      },
     trigger: '4',
   },
   {

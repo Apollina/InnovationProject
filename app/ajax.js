@@ -9,6 +9,16 @@ export default {
         } catch (error) {
             console.error(error);
         }
+    },
+
+    async fetchKeywords() {
+        try {
+            let response = await fetch(apiHost + '/keyword/?format=json');
+            let responseJson = await response.json();
+            return responseJson;
+        } catch (error) {
+            console.error(error);
+        }
     }
 
 };

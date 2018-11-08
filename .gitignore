@@ -93,3 +93,4 @@ buck-out
 # ReactCommon subdir shouldn't have Xcode project
 /ReactCommon/**/*.xcodeproj
 RNTester/build
+app/firebase\.js
