@@ -14,21 +14,20 @@ class Courses extends Component {
     }
     async componentDidMount() {
         const courses = await ajax.fetchInitialCourses();
-        this.setState(prevState => {
-            return { courses };
-        });
-        console.log(courses);
+        this.setState({ courses });
+        console.log('COURSES' + courses);
     }
 
 
     render() {
 
-        //console.log(this.state.courses);
-        //console.log(Object.keys(this.state.courses).length);
+        console.log('STATE COURSES ');
+        console.log(this.state.courses);
+        console.log('COURSES LENGTH' + Object.keys(this.state.courses).length);
 
         return (
             <View style={styles.container}>
-                {this.state.courses.length > 0 ? (
+                {Object.keys(this.state.courses).length > 0  ? (
                     <CoursesList courses={this.state.courses}/>
                 ) : (
                     <Text style={styles.header}> Course List </Text>
