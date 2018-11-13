@@ -2,10 +2,10 @@ import React from 'react';
 import { createBottomTabNavigator } from 'react-navigation';
 
 
-import Courses from '../views/Courses';
+import Courses from '../views/OfferedCourses/Courses';
 import LevelMap from '../views/LevelMap';
 import ProfilePage from '../views/ProfilePage';
-import CoursesList from '../views/CoursesList';
+import CoursesList from '../views/OfferedCourses/CoursesList';
 
 export const TabNav = createBottomTabNavigator ({
     CourseList: {

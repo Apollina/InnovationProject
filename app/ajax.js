@@ -12,7 +12,7 @@ export default {
             console.log(responseJson);
             console.log(Object.keys(responseJson).length);
             console.log("test json read");
-            console.log(responseJson.data.id);
+            console.log('ID' + responseJson.data);
 
             let key, count = 0;
             for(key in responseJson) {

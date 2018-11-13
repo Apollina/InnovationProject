@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, FlatList, StyleSheet} from 'react-native';
 
 
 class CoursesList extends React.Component {
@@ -12,7 +12,15 @@ class CoursesList extends React.Component {
     render() {
         return (
             <View style={styles.list}>
-                <Text> Courses.. </Text>
+               {/* {this.props.courses.map((course) =>
+                <Text key={course.key}> {course.name.en}
+                </Text>
+                )}*/}
+
+                <FlatList
+                    data={this.props.courses}
+                    renderItem={({item}) => <Text>{item.name.en}</Text>}
+                />
             </View>
         );
     }

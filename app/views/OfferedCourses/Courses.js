@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View} from 'react-native';
-import ajax from '../ajax';
+import ajax from '../../ajax';
 import CoursesList from './CoursesList';
 
 
@@ -22,13 +22,14 @@ class Courses extends Component {
     render() {
 
         console.log('STATE COURSES ');
-        console.log(this.state.courses);
+        console.log(this.state.courses.data);
+        console.log('COURSES LENGTH' + Object.keys(this.state.courses).length);
         console.log('COURSES LENGTH' + Object.keys(this.state.courses).length);
 
         return (
             <View style={styles.container}>
                 {Object.keys(this.state.courses).length > 0  ? (
-                    <CoursesList courses={this.state.courses}/>
+                    <CoursesList courses={this.state.courses.data}/>
                 ) : (
                     <Text style={styles.header}> Course List </Text>
                 )}
