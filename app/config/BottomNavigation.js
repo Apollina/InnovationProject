@@ -6,10 +6,11 @@ import Courses from '../views/OfferedCourses/Courses';
 import LevelMap from '../views/LevelMap';
 import ProfilePage from '../views/ProfilePage';
 import CoursesList from '../views/OfferedCourses/CoursesList';
+import CourseItem from '../views/OfferedCourses/CourseItem';
 
 export const TabNav = createBottomTabNavigator ({
     CourseList: {
-        screen: Courses, CoursesList,
+        screen: Courses, CoursesList, CourseItem,
         navigationOptions: ({ navigation }) => ({
             title: "Courses",
         })

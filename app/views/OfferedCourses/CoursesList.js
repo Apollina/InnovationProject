@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Text, View, FlatList, StyleSheet} from 'react-native';
+import CourseItem from "./CourseItem";
+
 
 
 class CoursesList extends React.Component {
@@ -19,7 +21,7 @@ class CoursesList extends React.Component {
 
                 <FlatList
                     data={this.props.courses}
-                    renderItem={({item}) => <Text>{item.name.en}</Text>}
+                    renderItem={({item}) => <CourseItem course={item}/>}
                 />
             </View>
         );
