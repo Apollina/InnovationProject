@@ -4,7 +4,7 @@ import {Text, View, Image, StyleSheet, ScrollView} from 'react-native';
 import {Button} from "native-base";
 import globalStyles from "../../styles";
 
-class CourseItem extends Component {
+class CourseDetails extends Component {
 
     static propTypes = {
         course: PropTypes.object.isRequired,
@@ -15,14 +15,15 @@ class CourseItem extends Component {
         const { course } = this.props;
 
         return (
-            <View style={styles.course}>
+            <View>
                 <Image
                     source={{uri: 'https://facebook.github.io/react/logo-og.png'}}
                     style={styles.image}
                 />
-                <View style={styles.info}>
-                    <Text style={styles.title}>{course.name.en}</Text>
+                <View>
+                    <Text>{course.name.en}</Text>
                     <Text>{course.description.en}</Text>
+                </View>
                 <View>
                     <Button bordered rounded dark style={globalStyles.editButton}
                         title="Learn More">
@@ -30,34 +31,16 @@ class CourseItem extends Component {
                     </Button>
                 </View>
                 </View>
-                </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-        course: {
-            marginHorizontal: 12,
-            marginTop: 12,
-        },
-        image: {
-            width: '100%',
-            height: 150,
-            backgroundColor: '#ccc',
-        },
-        info: {
-            padding: 10,
-            backgroundColor: '#fff',
-            borderColor: '#bbb',
-            borderWidth: 1,
-            borderTopWidth: 0,
-        },
-        title: {
-            fontSize: 16,
-            fontWeight: 'bold',
-            marginBottom: 5,
-        },
-    });
+    image: {
+        width: '100%',
+        height: 150,
+    }
+});
 
-export default CourseItem;
+export default CourseDetail;
 
