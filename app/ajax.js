@@ -5,6 +5,7 @@ export default {
         try {
             let response = await fetch(apiHost + '/event/?format=json');
             let responseJson = await response.json();
+            console.log('RESPONSE JSON' + responseJson);
             return responseJson;
         } catch (error) {
             console.error(error);
