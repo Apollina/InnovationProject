@@ -19,12 +19,6 @@ export default styles = StyleSheet.create({
     pageContainer: {
         marginTop: 60
     },
-    textFirst: {
-        fontSize: 50,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginTop: 300,
-    },
     profilePicture: {
         marginRight: 10,
         height: 90,
