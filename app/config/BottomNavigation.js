@@ -8,7 +8,7 @@ import ProfilePage from '../views/Profile/ProfilePage';
 
 export const TabNav = createBottomTabNavigator ({
     CourseList: {
-        screen: Courses, CoursesList, CourseItem,
+        screen: Courses,
         navigationOptions: ({ navigation }) => ({
             title: "Courses",
         })
