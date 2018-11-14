@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { ScrollView, Image, View, TextInput } from 'react-native'
+import { ScrollView, View, TextInput } from 'react-native'
 import { Text, Container, Button } from 'native-base'
 import DatePicker from 'react-native-datepicker'
 import styles from '../../styles';
@@ -82,10 +82,9 @@ class ProfilePage extends Component {
                                 confirmBtnText="Confirm"
                                 cancelBtnText="Cancel"
                                 customStyles={{
-                                dateIcon: {
-                                    display: 'none'
-                                }
-                                // ... You can check the source to find the other keys.
+                                    dateIcon: {
+                                        display: 'none'
+                                    }
                                 }}
                                 onDateChange={(date) => {this.setState({date: date})}}
                             />
