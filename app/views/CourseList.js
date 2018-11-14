@@ -42,8 +42,11 @@ class CourseList extends Component {
 
         let keywordList = [];
         keywords.data.map((keywordData) => {
-            if (keywordData.name.fi != null){
-                keywordList.push(keywordData.name.fi);
+            if (typeof keywordData.name.en === 'undefined' || keywordData.name.en == null){
+                if (keywordData.name.fi != null)
+                    keywordList.push(keywordData.name.fi);
+            }else {
+                keywordList.push(keywordData.name.en);
             }
         });
         console.log('LIST ' +keywordList);
@@ -51,16 +54,39 @@ class CourseList extends Component {
     }
 
     saveKeywords(keywords) {
-        firebase.database().ref().set({
+        firebase.database().ref('ListOfKeywords/').set({
             ListOfKeywords: {
                 keywords
             }
-        }).then((data)=>{
-            //success callback
-            console.log('data ' , data)
         }).catch((error)=>{
             //error callback
-            console.log('error ' , error)
+            console.log('error ', error)
+        })
+    };
+    saveCategories() {
+        firebase.database().ref('ListOfCategories/').set({
+            categories: {
+                "1": {
+                    "id": "1",
+                    "description": "Arts"
+                },
+                "2": {
+                    "id": "2",
+                    "description": "Sports"
+                },
+                "3": {
+                    "id": "3",
+                    "description": "Movies & Music"
+                }
+            }
+        }).then((data)=>{
+            //success callback
+            console.log('[ChatbotPage] category data saved to DB');
+            // save keywords to DB
+            this.saveKeywords(this.state.keywords)
+        }).catch((error)=>{
+            //error callback
+            console.log('[ChatbotPage] DB save error ' , error)
         })
     };
 
@@ -72,8 +98,8 @@ class CourseList extends Component {
                 </View>
             )
         } else {
-            // save keywords to firebase
-            this.saveKeywords(this.state.keywords);
+            // save categories to DB
+            this.saveCategories();
             return (
 
                 <View>
