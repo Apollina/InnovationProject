@@ -1,11 +1,10 @@
 import React, {Component} from 'react'
-import { ScrollView, Image, View, TextInput } from 'react-native'
+import { ScrollView, View, TextInput } from 'react-native'
 import { Text, Container, Button } from 'native-base'
-import * as Progress from 'react-native-progress'
 import DatePicker from 'react-native-datepicker'
-import styles from '../styles';
-
-import AppHeader from '../components/AppHeader'
+import styles from '../../styles';
+import ProfileInfo from './ProfileInfo';
+import RenderCourses from './RenderCourses';
 
 class ProfilePage extends Component {
     constructor(props) {
@@ -42,66 +41,12 @@ class ProfilePage extends Component {
         };
     }
     
-    renderCourses(coursesToMap) {
-        return Courses = coursesToMap.map(function(course, i) {
-            return(
-                <View key={i} style={styles.coursesWrapper}>
-                    <Text style={styles.courseHeader}>
-                        {course.courseName}
-                    </Text>
-                    <Text>
-                        at {course.courseLocation}
-                    </Text>
-                    {course.courseDate && 
-                        <Text>
-                            {course.courseDate}
-                        </Text>
-                    }
-                </View>
-            ); 
-        });
-    }
-
     render() {
         return ( 
             <Container style={styles.pageContainer}>
                 <ScrollView style={styles.viewWrapper}>
                     {!this.state.showEditing &&  
-                        <View >
-                            <Text style={styles.H1}>
-                                {this.state.nickName}
-                            </Text>
-                            <View style={styles.infoWrapper}>
-                                <Image source={{uri: 'http://placekitten.com/320/180'}} style={styles.profilePicture} />
-                                <View style={styles.textWrapper}>
-                                    <Text style={styles.H2}>Member since</Text>
-                                    <Text style={styles.smallText}>{this.state.signInDate}</Text>
-                                </View>
-                            </View>
-                            <Text style={styles.H1}>
-                                Level {this.state.userLevel}
-                            </Text>
-                            <Text>
-                                Level progress
-                            </Text>
-                            <Progress.Bar style={styles.progressBar} progress={this.state.levelProgression} height={10} width={null} borderWidth={2} borderColor={'black'} borderRadius={10}/>
-                            {this.state.coursesVisited && this.state.coursesVisited.length &&       
-                                <View>
-                                    <Text style={styles.courseHeader}>
-                                        Last course locations visited
-                                    </Text>
-                                    {this.renderCourses(this.state.coursesVisited)}
-                                </View>
-                                }
-                                {this.state.activeCourses && this.state.activeCourses.length &&
-                                    <View>
-                                        <Text style={styles.courseHeader}>
-                                            Active courses
-                                        </Text>
-                                        {this.renderCourses(this.state.activeCourses)}
-                                    </View>
-                                }
-                            </View>
+                       <ProfileInfo stateData={this.state} /> 
                     }
                     {this.state.showEditing &&  
                     <View>
@@ -137,10 +82,9 @@ class ProfilePage extends Component {
                                 confirmBtnText="Confirm"
                                 cancelBtnText="Cancel"
                                 customStyles={{
-                                dateIcon: {
-                                    display: 'none'
-                                }
-                                // ... You can check the source to find the other keys.
+                                    dateIcon: {
+                                        display: 'none'
+                                    }
                                 }}
                                 onDateChange={(date) => {this.setState({date: date})}}
                             />
@@ -155,7 +99,7 @@ class ProfilePage extends Component {
                                 <Text style={styles.courseHeader}>
                                     Active courses
                                 </Text>
-                                {this.renderCourses(this.state.activeCourses)}
+                                <RenderCourses coursesToMap={this.state.activeCourses} />
                             </View>
                         }
                     </View>
