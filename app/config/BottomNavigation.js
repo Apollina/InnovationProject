@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from 'react-navigation';
 
 import Courses from '../views/OfferedCourses/Courses';
 import LevelMap from '../views/LevelMap';
-import Chatbot from '../views/Chatbot';
+import Keywords from '../views/Keywords';
 import ProfilePage from '../views/Profile/ProfilePage';
 
 export const TabNav = createBottomTabNavigator ({
@@ -20,8 +20,8 @@ export const TabNav = createBottomTabNavigator ({
             title: "Map",
         })
     },
-    Chatbot: {
-        screen: Chatbot,
+    Keywords: {
+        screen: Keywords,
         navigationOptions: ({ navigation }) => ({
             title: "Chat",
         })

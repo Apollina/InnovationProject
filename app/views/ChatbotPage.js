@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import ChatBot from 'react-native-chatbot';
+import PropTypes from "prop-types";
 
-class Chatbot extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
+class ChatbotPage extends Component {
+    static propTypes = {
+        categoriesOptions: PropTypes.array.isRequired,
+    };
 
     render() {
+        console.log('++++ '+this.props.categoriesOptions);
         return (
             <ChatBot
                 steps={[
@@ -59,10 +60,14 @@ class Chatbot extends Component {
                     },
                     {
                         id: '8',
+                        options: this.props.categoriesOptions
+                        /*
                         options: [
-                            {value: 1, label: 'Start over', trigger: '0'},
-                            {value: 2, label: 'Exit', end: true},
+                            {value: 1, label: 'Work', trigger: '0'},
+                            {value: 2, label: 'Exit', end: true}
                         ],
+                        */
+
                     },
                 ]}
             />
@@ -70,5 +75,4 @@ class Chatbot extends Component {
     }
 }
 
-export default Chatbot;
-
+export default ChatbotPage;
