@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Text, StyleSheet, View} from 'react-native';
 import ajax from '../../ajax';
 import CoursesList from './CoursesList';
+import CourseDetails from './CourseDetails';
 
 
 class Courses extends Component {
@@ -10,6 +11,7 @@ class Courses extends Component {
         super();
         this.state = {
             courses: [],
+            currentCourseId: null,
         }
     }
     async componentDidMount() {
@@ -17,22 +19,25 @@ class Courses extends Component {
         this.setState({ courses });
         console.log('COURSES' + courses);
     }
-
+    setCurrentCourse = (courseId) => {
+        this.setState({
+            currentCourseId: courseId
+        });
+    };
+    currentCourse = () => {
+        return this.state.courses.data.find((course) => course.id === this.state.currentCourseId);
+    };
 
     render() {
-
-        console.log('STATE COURSES ');
-        console.log(this.state.courses.data);
-        console.log('COURSES LENGTH' + Object.keys(this.state.courses).length);
-        console.log('COURSES LENGTH' + Object.keys(this.state.courses).length);
-
+        if (this.state.currentCourseId) {
+            return <CourseDetails course={this.currentCourse()} />;
+        }
+        if (Object.keys(this.state.courses).length > 0) {
+            return <CoursesList courses={this.state.courses.data} onItemPress={this.setCurrentCourse}/>
+        }
         return (
             <View style={styles.container}>
-                {Object.keys(this.state.courses).length > 0  ? (
-                    <CoursesList courses={this.state.courses.data}/>
-                ) : (
                     <Text style={styles.header}> Course List </Text>
-                )}
             </View>
         );
     }

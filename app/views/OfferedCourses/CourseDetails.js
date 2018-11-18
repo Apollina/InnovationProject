@@ -42,5 +42,5 @@ const styles = StyleSheet.create({
     }
 });
 
-export default CourseDetail;
+export default CourseDetails;
 

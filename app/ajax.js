@@ -1,6 +1,4 @@
 const apiHost = 'https://linkedcourses-api.test.hel.ninja/linkedcourses-test/v1'
-//const apiHost = 'https://bakesaleforgood.com'
-//const apiHost = 'https://api.hel.fi/linkedevents/v'
 //const apiHost = 'https://linkedcourses-api.test.hel.ninja/linkedcourses-test/v1/events/?format=api'
 
 export default {

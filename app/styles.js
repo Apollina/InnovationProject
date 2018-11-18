@@ -87,6 +87,13 @@ export default styles = StyleSheet.create({
     },
     editButton: {
         marginVertical: 15,
-        alignSelf: "center"
+        alignSelf: "center",
+        flex: 4
+    },
+    enrollButton: {
+        marginVertical: 15,
+        marginHorizontal: 15,
+        flex: 4,
+        alignSelf: "center",
     }
 });

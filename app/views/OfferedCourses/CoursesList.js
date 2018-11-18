@@ -9,6 +9,7 @@ class CoursesList extends React.Component {
 
     static propTypes = {
         courses: PropTypes.array.isRequired,
+        onItemPress: PropTypes.func.isRequired,
     };
 
     render() {
@@ -21,7 +22,7 @@ class CoursesList extends React.Component {
 
                 <FlatList
                     data={this.props.courses}
-                    renderItem={({item}) => <CourseItem course={item}/>}
+                    renderItem={({item}) => <CourseItem course={item} onPress={this.props.onItemPress}/>}
                 />
             </View>
         );
