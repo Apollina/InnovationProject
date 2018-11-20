@@ -21,8 +21,8 @@ class CourseItem extends Component {
                     style={styles.image}
                 />
                 <View style={styles.info}>
-                    <Text style={styles.title}>{course.name.en}</Text>
-                    <Text>{course.description.en}</Text>
+                    <Text style={styles.title}>{course.name.fi}</Text>
+                    <Text>{course.description.fi}</Text>
                 <View>
                     <Button bordered rounded dark style={globalStyles.editButton}
                         title="Learn More">
