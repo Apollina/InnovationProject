@@ -21,7 +21,6 @@ class CourseKeywords extends Component {
         const {steps} = this.props;
         const categoryIndex = steps['6_options_category'].value;
         let keywordArr = this.props.keywordCategories[categoryIndex].keywords;
-        console.log(categoryIndex);
         console.log(keywordArr);
 
         //map Array of Keywords to ajax call parameter
@@ -31,18 +30,29 @@ class CourseKeywords extends Component {
             strKeywords += keywordArr[i].id + ',';
         }
         strKeywords += keywordArr[arrayLength - 1].id;
+        console.log(strKeywords);
 
         const courseResponse = await ajax.fetchCoursesByKeyword(strKeywords);
+        let numberOfCourses = 0;
         //Remove later: console log, to see the courses
+
+        let courses = [];
         courseResponse.data.map((courseData) => {
             if (courseData.name.en === undefined || courseData.name.en == null) {
                 if (courseData.name.fi !== undefined && courseData.name.fi != null)
                     console.log(courseData.name.fi);
+                    courses.push(courseData);
+                    numberOfCourses++;
             } else {
                 console.log(courseData.name.en);
+                courses.push(courseData);
+                numberOfCourses++;
             }
         });
-        this.setState({course: courseResponse.data[13]});
+
+        let randIndex = Math.floor(Math.random() * (numberOfCourses) );
+        console.log('num of courses '+ numberOfCourses+' rand index: '+randIndex);
+        this.setState({course: courses[randIndex]});
         console.log(this.state.course);
     }
 
