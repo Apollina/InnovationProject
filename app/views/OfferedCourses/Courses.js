@@ -6,22 +6,28 @@ import CourseDetails from './CourseDetails';
 
 
 class Courses extends Component {
-    // use the below to initialise state
+
     constructor() {
         super();
         this.state = {
             courses: [],
+            images: [],
             currentCourseId: null,
         }
     }
     async componentDidMount() {
         const courses = await ajax.fetchInitialCourses();
         this.setState({ courses });
-        console.log('COURSES' + courses);
     }
+
     setCurrentCourse = (courseId) => {
         this.setState({
             currentCourseId: courseId
+        });
+    };
+    unsetCurrentCourse = () => {
+        this.setState({
+            currentCourseId: null
         });
     };
     currentCourse = () => {
@@ -30,7 +36,7 @@ class Courses extends Component {
 
     render() {
         if (this.state.currentCourseId) {
-            return <CourseDetails course={this.currentCourse()} />;
+            return <CourseDetails initialCourseData={this.currentCourse()} onBack={this.unsetCurrentCourse}/>;
         }
         if (Object.keys(this.state.courses).length > 0) {
             return <CoursesList courses={this.state.courses.data} onItemPress={this.setCurrentCourse}/>

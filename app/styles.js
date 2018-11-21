@@ -4,8 +4,7 @@ export default styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
-
+        alignItems: 'center',
     },
     header: {
         fontSize: 40,
@@ -39,7 +38,12 @@ export default styles = StyleSheet.create({
         flexDirection: 'row',
         marginVertical: 10,
     },
+    btnWrapper: {
+        flex: 1,
+        flexDirection: 'row',
+    },
     textWrapper: {
+        flex: 1,
         flexDirection: 'column'
     },
     viewWrapper: {
@@ -76,7 +80,8 @@ export default styles = StyleSheet.create({
         fontSize: 20
     },
     smallText: {
-        fontSize: 15
+        fontSize: 15,
+        paddingBottom: 10
     },
     reallySmallText: {
         fontSize: 5
@@ -88,12 +93,40 @@ export default styles = StyleSheet.create({
     editButton: {
         marginVertical: 15,
         alignSelf: "center",
-        flex: 4
+        flex: 1,
+        borderColor: "#22f",
     },
     enrollButton: {
         marginVertical: 15,
         marginHorizontal: 15,
-        flex: 4,
+        borderColor: "#22f",
+        flex: 1
+    },
+    listOfCourses: {
+        flex: 1,
+        width: '100%',
+        paddingTop: 50,
+    },
+    course: {
+        marginHorizontal: 12,
+        marginTop: 12,
+        backgroundColor: '#fff',
+        borderColor: 'black',
+        borderRadius: 10,
+        borderWidth: 1,
+        padding: 10,
+    },
+    textBtn: {
         alignSelf: "center",
-    }
+        textAlign: "center",
+        color: "#22f",
+    },
+    courseDetailsPage: {
+        marginHorizontal: 12,
+        marginTop: 50,
+    },
+    backLink: {
+        marginBottom: 10,
+        color: "#22f"
+    },
 });
