@@ -9,8 +9,8 @@ export default {
             console.log('ID' + responseJson.data);
 
             let key, count = 0;
-            for(key in responseJson) {
-                if(responseJson.hasOwnProperty(key)) {
+            for (key in responseJson) {
+                if (responseJson.hasOwnProperty(key)) {
                     count++;
                 }
             }
@@ -30,6 +30,26 @@ export default {
         } catch (error) {
             console.error(error);
         }
-    }
+    },
 
+    async fetchCoursesByKeyword(keyword) {
+        try {
+            //let response = await fetch(apiHost + '/event/?keyword=yso:p7969');
+            let response = await fetch(apiHost + '/event/?keyword='+keyword);
+            let responseJson = await response.json();
+            return responseJson;
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
+    async fetchInitialKeywords() {
+        try {
+            let response = await fetch(apiHost + '/keyword/?format=json');
+            let responseJson = await response.json();
+            return responseJson;
+        } catch (error) {
+            console.error(error);
+        }
+    }
 };
