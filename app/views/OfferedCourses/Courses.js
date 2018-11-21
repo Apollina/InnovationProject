@@ -2,37 +2,48 @@ import React, {Component} from 'react';
 import {Text, StyleSheet, View} from 'react-native';
 import ajax from '../../ajax';
 import CoursesList from './CoursesList';
+import CourseDetails from './CourseDetails';
 
 
 class Courses extends Component {
-    // use the below to initialise state
+
     constructor() {
         super();
         this.state = {
             courses: [],
+            images: [],
+            currentCourseId: null,
         }
     }
     async componentDidMount() {
         const courses = await ajax.fetchInitialCourses();
         this.setState({ courses });
-        console.log('COURSES' + courses);
     }
 
+    setCurrentCourse = (courseId) => {
+        this.setState({
+            currentCourseId: courseId
+        });
+    };
+    unsetCurrentCourse = () => {
+        this.setState({
+            currentCourseId: null
+        });
+    };
+    currentCourse = () => {
+        return this.state.courses.data.find((course) => course.id === this.state.currentCourseId);
+    };
 
     render() {
-
-        console.log('STATE COURSES ');
-        console.log(this.state.courses.data);
-        console.log('COURSES LENGTH' + Object.keys(this.state.courses).length);
-        console.log('COURSES LENGTH' + Object.keys(this.state.courses).length);
-
+        if (this.state.currentCourseId) {
+            return <CourseDetails initialCourseData={this.currentCourse()} onBack={this.unsetCurrentCourse}/>;
+        }
+        if (Object.keys(this.state.courses).length > 0) {
+            return <CoursesList courses={this.state.courses.data} onItemPress={this.setCurrentCourse}/>
+        }
         return (
             <View style={styles.container}>
-                {Object.keys(this.state.courses).length > 0  ? (
-                    <CoursesList courses={this.state.courses.data}/>
-                ) : (
                     <Text style={styles.header}> Course List </Text>
-                )}
             </View>
         );
     }
