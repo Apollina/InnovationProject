@@ -3,6 +3,7 @@ import {Text} from "react-native";
 import ajax from '../../ajax';
 import PropTypes from "prop-types";
 import CourseItem from "../OfferedCourses/CourseItem";
+import Courses from "../OfferedCourses/Courses";
 
 class CourseKeywords extends Component {
     constructor(props) {
@@ -26,37 +27,44 @@ class CourseKeywords extends Component {
         let keywordArr = this.props.keywordCategories[categoryIndex].keywords;
 
         let userAgeKeyword = this.getUserAgeKeyword(userAge);
-        if (userAgeKeyword !== undefined){keywordArr.push(userAgeKeyword)}
+        if (userAgeKeyword !== undefined) {
+            console.log(userAgeKeyword)
+        }
 
         let strKeywords = this.mapKeywords(keywordArr);
         console.log(strKeywords);
 
         const courseResponse = await ajax.fetchCoursesByKeyword(strKeywords);
         let numberOfCourses = 0;
-        //Remove later: console log, to see the courses
 
         let courses = [];
         courseResponse.data.map((courseData) => {
             if (courseData.name.en === undefined || courseData.name.en == null) {
-                if (courseData.name.fi !== undefined && courseData.name.fi != null)
-                    console.log(courseData.name.fi);
+                if (courseData.name.fi !== undefined && courseData.name.fi !== null) {
+                   // if(courseData.keywords.includes(userAgeKeyword)){
+                        console.log(courseData.name.fi);
+                        courses.push(courseData);
+                        numberOfCourses++;
+                    //}
+                }
+            } else {
+               // if(courseData.keywords.includes(userAgeKeyword)){
+                    console.log(courseData.name.en);
                     courses.push(courseData);
                     numberOfCourses++;
-            } else {
-                console.log(courseData.name.en);
-                courses.push(courseData);
-                numberOfCourses++;
+                //}
             }
         });
+        console.log(courses);
 
-        let randIndex = Math.floor(Math.random() * (numberOfCourses) );
-        console.log('num of courses '+ numberOfCourses+' rand index: '+randIndex);
+        let randIndex = Math.floor(Math.random() * (numberOfCourses));
+        console.log('num of courses ' + numberOfCourses + ' rand index: ' + randIndex);
         this.setState({course: courses[randIndex]});
         this.setState({courseId: courses[randIndex].id});
         console.log(this.state.course);
     }
 
-    mapKeywords(keywordArr){
+    mapKeywords(keywordArr) {
         let strKeywords = '';
         let arrayLength = keywordArr.length;
         for (let i = 0; i < arrayLength - 1; i++) {
@@ -73,7 +81,7 @@ class CourseKeywords extends Component {
     };
 
     render() {
-        if (this.state.course === undefined || this.state.courseId === undefined){
+        if (this.state.course === undefined || this.state.courseId === undefined) {
             return (
                 <Text>Loading...</Text>
             );
@@ -81,13 +89,14 @@ class CourseKeywords extends Component {
         else {
             return (
                 <CourseItem course={this.state.course} onPress={this.setCurrentCourse}/>
+                //<Courses recommendedCourses={this.state.course}/>
             );
         }
     }
 
     getUserAgeKeyword(userAge) {
-        if (userAge <= 17){
-            if (userAge <= 13){
+        if (userAge <= 17) {
+            if (userAge <= 13) {
                 return this.props.ageCategories[0].keywords[0].id;
             }
             return this.props.ageCategories[1].keywords[0].id;

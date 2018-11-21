@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ChatBot from 'react-native-chatbot';
 import PropTypes from "prop-types";
-import {Text} from "react-native";
+import {StyleSheet, ActivityIndicator, View} from "react-native";
 import CourseKeywords from './CourseKeywords';
 
 class ChatbotPage extends Component {
@@ -22,6 +22,7 @@ class ChatbotPage extends Component {
         if (this.props.ageCategories.length !== 0 && this.props.keywordCategories.length !== 0 && this.props.categoriesOptions.length !== 0) {
                 return (
                     <ChatBot
+                        botBubbleColor = '#0066cc'
                         steps={[
                             {
                                 id: '0_msg_welcome',
@@ -88,14 +89,30 @@ class ChatbotPage extends Component {
                                 id: '10_msg_result',
                                 message: 'You can click on a course if you like to get more information.',
                                 end: true
-                            },
+                            }
                         ]}
                     />
                 )
         } else {
-            return <Text> Chatbot loading... </Text>
+            return (
+                <View style={[styles.container, styles.horizontal]}>
+                    <ActivityIndicator size="large" color="#0066cc" />
+                </View>
+            )
         }
     }
 }
 
 export default ChatbotPage;
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center'
+    },
+    horizontal: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        padding: 10
+    }
+});
