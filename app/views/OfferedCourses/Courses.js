@@ -3,6 +3,7 @@ import {Text, StyleSheet, View} from 'react-native';
 import ajax from '../../ajax';
 import CoursesList from './CoursesList';
 import CourseDetails from './CourseDetails';
+import LoadingWheel from "../../components/LoadingWheel";
 
 
 class Courses extends Component {
@@ -42,9 +43,7 @@ class Courses extends Component {
             return <CoursesList courses={this.state.courses.data} onItemPress={this.setCurrentCourse}/>
         }
         return (
-            <View style={styles.container}>
-                    <Text style={styles.header}> Course List </Text>
-            </View>
+            <LoadingWheel/>
         );
     }
 }

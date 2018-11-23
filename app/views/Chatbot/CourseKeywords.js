@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {Text} from "react-native";
 import ajax from '../../ajax';
 import PropTypes from "prop-types";
 import CourseItem from "../OfferedCourses/CourseItem";
 import Courses from "../OfferedCourses/Courses";
+import LoadingWheel from "../../components/LoadingWheel";
 
 class CourseKeywords extends Component {
     constructor(props) {
@@ -57,7 +57,7 @@ class CourseKeywords extends Component {
         });
         console.log(courses);
 
-        let randIndex = Math.floor(Math.random() * (numberOfCourses));
+        let randIndex = Math.floor(Math.random() * numberOfCourses);
         console.log('num of courses ' + numberOfCourses + ' rand index: ' + randIndex);
         this.setState({course: courses[randIndex]});
         this.setState({courseId: courses[randIndex].id});
@@ -83,7 +83,7 @@ class CourseKeywords extends Component {
     render() {
         if (this.state.course === undefined || this.state.courseId === undefined) {
             return (
-                <Text>Loading...</Text>
+                <LoadingWheel/>
             );
         }
         else {
