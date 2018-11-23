@@ -4,21 +4,30 @@ import ajax from '../../ajax';
 import CoursesList from './CoursesList';
 import CourseDetails from './CourseDetails';
 import LoadingWheel from "../../components/LoadingWheel";
-
+import PropTypes from "prop-types";
 
 class Courses extends Component {
 
     constructor() {
         super();
         this.state = {
-            courses: [],
+            courses: {},
             images: [],
             currentCourseId: null,
         }
     }
+
+    static propTypes = {
+        filteredCourses: PropTypes.object
+    };
+
     async componentDidMount() {
-        const courses = await ajax.fetchInitialCourses();
-        this.setState({ courses });
+        if (this.props.filteredCourses !== undefined && this.props.filteredCourses !== null) {
+            this.setState({courses: this.props.filteredCourses});
+        } else {
+            const courses = await ajax.fetchInitialCourses();
+            this.setState({courses});
+        }
     }
 
     setCurrentCourse = (courseId) => {

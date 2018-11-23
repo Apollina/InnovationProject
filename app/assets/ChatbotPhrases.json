@@ -16,18 +16,13 @@
     "You want to discover fun courses? Then start chatting with me."
   ],
   "5_msg_category":[
-    "What do you like to do?",
+    "What do you like to do in your free time? Please choose a category",
     "What are you interested in?",
     "In what category are you interested in?"
   ],
   "8_msg_search":[
     "I am now going to search for suitable courses ...",
     "I am searching for your courses ...",
-    "Let me look for fun courses ..."
-  ],
-  "10_msg_result":[
-    "I am going to search for suitable courses ...",
-    "Let me look for fun courses ...",
     "Let me look for fun courses ..."
   ]
 }

@@ -98,9 +98,7 @@ class ChatbotPage extends Component {
                     />
                 )
         } else {
-            return (
-                <LoadingWheel/>
-            )
+            return <LoadingWheel/>
         }
     }
 }
