@@ -8,44 +8,46 @@ import PropTypes from "prop-types";
 
 class ProfileInfo extends Component {
     static propTypes = {
-        userInfo: PropTypes.object.isRequired
+        userData: PropTypes.object.isRequired,
+        levelData: PropTypes.object.isRequired
     };
 
     render() {
+        console.log(this.props.levelData);
         return (
             <View>
                 <Text style={styles.H1}>
-                    {this.props.userInfo.nickName}
+                    {this.props.userData.nickName}
                 </Text>
                 <View style={styles.infoWrapper}>
                     <Image source={{uri: 'http://placekitten.com/320/180'}} style={styles.profilePicture}/>
                     <View style={styles.textWrapper}>
                         <Text style={styles.H2}>Member since</Text>
-                        <Text style={styles.smallText}>{this.props.userInfo.signInDate}</Text>
+                        <Text style={styles.smallText}>{this.props.userData.signInDate}</Text>
                     </View>
                 </View>
                 <Text style={styles.H1}>
-                    Level {this.props.userInfo.userLevel}
+                    Level {this.props.userData.userLevel}: {this.props.levelData.description}
                 </Text>
                 <Text>
-                    Level progress
+                    {this.props.levelData.pointsTillLevelUp == 0 ? 'Max-Level reached!' : this.props.levelData.pointsTillLevelUp +' points till next level up.'}
                 </Text>
-                <Progress.Bar style={styles.progressBar} progress={this.props.userInfo.levelProgression} height={10} width={null}
+                <Progress.Bar style={styles.progressBar} progress={this.props.levelData.progression} height={10} width={null}
                               borderWidth={2} borderColor={'black'} borderRadius={10}/>
-                {this.props.userInfo.coursesVisited && this.props.userInfo.coursesVisited.length &&
+                {this.props.userData.coursesVisited && this.props.userData.coursesVisited.length &&
                 <View>
                     <Text style={styles.courseHeader}>
                         Last course locations visited
                     </Text>
-                    <RenderCourses coursesToMap={this.props.userInfo.coursesVisited}/>
+                    <RenderCourses coursesToMap={this.props.userData.coursesVisited}/>
                 </View>
                 }
-                {this.props.userInfo.activeCourses && this.props.userInfo.activeCourses.length &&
+                {this.props.userData.activeCourses && this.props.userData.activeCourses.length &&
                 <View>
                     <Text style={styles.courseHeader}>
                         Active courses
                     </Text>
-                    <RenderCourses coursesToMap={this.props.userInfo.activeCourses}/>
+                    <RenderCourses coursesToMap={this.props.userData.activeCourses}/>
                 </View>
                 }
             </View>
