@@ -44,7 +44,7 @@ class ProfilePage extends Component {
             this.mapPointsToProgress();
         }).catch((error) => {
             //error callback
-            console.log('[ProfilePage] DB getUserInfo() error ', error)
+            console.log('[ProfilePage] DB getLevelSystemData() error ', error)
         })
     }
 
@@ -64,7 +64,6 @@ class ProfilePage extends Component {
             console.log(levelProgress);
             levelData.progression = levelProgress;
             levelData.pointsTillLevelUp = this.state.levelSystem[currentLevel].points - this.state.userData.points;
-
         }
         console.log(this.state.levelData);
         this.setState({levelData: levelData});
