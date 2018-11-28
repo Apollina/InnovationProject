@@ -54,15 +54,15 @@ To get project running on windows you need to install Node.js, Java SE Dev Kit a
 
 Start by installing Node.js version [9.11.2](https://nodejs.org/download/release/v9.11.2/). It's the newest version supported by Firebase. 
 
-### Java SDK
+#### Java SDK
 
 Install [Java SDK](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 
-### Python 2
+#### Python 2
 
 You will also have to install [Python 2](https://www.python.org/downloads/)
 
-### Intel Hardware Accelerated Virtualization
+#### Intel Hardware Accelerated Virtualization
 
 In addition you need to enable hardware virtualization from BIOS if it is not enabled yet.
 
@@ -80,7 +80,7 @@ Then start command line interface (cmd) as an admin and run the command
 npm install -g react-native-cli
 ```
 
-### Android studio
+#### Android studio
 
 Download and install [Android studio](https://developer.android.com/studio/).
 
@@ -93,7 +93,7 @@ Choose a "Custom" setup when prompted to select an installation type. Make sure 
 
 From Android Studio SDK Manager, install the correct Android SDK (one that supports react native)
 
-### Android 8.1 (Oreo)
+#### Android 8.1 (Oreo)
 
 Expand and select 
 
@@ -120,7 +120,7 @@ git init
 git clone https://github.com/Apollina/InnovationProject.git
 ```
 
-After cloning our repository run
+After cloning this repository run
 
 ```
 npm install
