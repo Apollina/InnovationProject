@@ -1,6 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 export default styles = StyleSheet.create({
+    screen: {
+        marginTop: 30,
+    },
     container: {
         flex: 1,
         justifyContent: 'center',
@@ -103,9 +106,7 @@ export default styles = StyleSheet.create({
         flex: 1
     },
     listOfCourses: {
-        flex: 1,
         width: '100%',
-        paddingTop: 50,
     },
     course: {
         marginHorizontal: 12,
@@ -123,10 +124,13 @@ export default styles = StyleSheet.create({
     },
     courseDetailsPage: {
         marginHorizontal: 12,
-        marginTop: 50,
     },
     backLink: {
         marginBottom: 10,
         color: "#22f"
     },
+    searchBar: {
+        height: 40,
+        marginHorizontal: 12
+    }
 });
