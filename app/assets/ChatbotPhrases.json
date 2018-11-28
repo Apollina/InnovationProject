@@ -16,9 +16,9 @@
     "You want to discover fun courses? Then start chatting with me."
   ],
   "5_msg_category":[
-    "What do you like to do in your free time? Please choose a category",
-    "What are you interested in?",
-    "In what category are you interested in?"
+    "What do you like to do in your free time? Please choose a category by pressing the buttons below.",
+    "What are you interested in? Please choose a category by pressing the buttons below.",
+    "In what category are you interested in? Please choose a category by pressing the buttons below."
   ],
   "8_msg_search":[
     "I am now going to search for suitable courses ...",
