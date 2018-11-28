@@ -51,10 +51,6 @@ npm install -g react-native-cli
 To get the latest version of our application, clone this git repository with https or ssh. 
 
 ```
-cd <targetfolder>
-```
-
-```
 git init
 ```
 
@@ -62,7 +58,25 @@ git init
 git clone https://github.com/Apollina/InnovationProject.git
 ```
 
-To run with ios simulator
+## Firebase stuff
+
+By using this JSON-schema, you have to set up your own Firebase database to handle the user related data.
+
+## Running with Xcode iOS simulator
+
+To run our project with Xcodes iOS simulator, you have to run two terminal windows in your project folder. On the first window run 
+
+```
+npm start
+```
+
+This will start the Metro bundler stuff, which compiles the code to functioning applicaton. To start the iOS simulator, on the other window run 
+
 ```
 react-native run-ios
 ```
+
+## Built with
+
+* [React Native](https://facebook.github.io/react-native/)
+* [Firebase](https://firebase.google.com/)
