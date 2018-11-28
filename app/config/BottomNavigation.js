@@ -20,12 +20,6 @@ export const TabNav = createBottomTabNavigator ({
             title: "Courses",
         })
     },
-    LevelMap: {
-        screen: LevelMap,
-        navigationOptions: ({ navigation }) => ({
-            title: "Map",
-        })
-    },
     ProfilePage: {
         screen: ProfilePage,
         navigationOptions: ({ navigation }) => ({

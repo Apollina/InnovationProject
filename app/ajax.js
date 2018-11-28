@@ -34,7 +34,7 @@ export default {
 
     async fetchCoursesByKeyword(keyword) {
         try {
-            let response = await fetch(apiHost + '/event/?keyword='+keyword+'/?sort=name');
+            let response = await fetch(apiHost + '/event/?keyword='+keyword);
             let responseJson = await response.json();
             return responseJson;
         } catch (error) {
