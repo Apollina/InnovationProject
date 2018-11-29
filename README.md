@@ -132,11 +132,10 @@ npm install
 
 Prerequisite: A google account.
 
-Open the [Firebase console](https://console.firebase.google.com/) and sign in with your google account if you aren't already logged in.
-Choose "Add Project" and give your project a name. Modify the project id, if you want to change the route of your Project.
-After the project was created, click in the Developer section on create database.
-Now you can add your data by using the following schema.
-If you want the initial state of the project, in the Project folder databasefiles (Route/app/databasefiles) are JSON files to be easily imported into your database.
+Open the [Firebase console](https://console.firebase.google.com/) and sign in with your google account if you aren't already logged in. Choose "Add Project" and give your project a name. Modify the project id, if you want to change the route of your Project.After the project was created, click in the Developer section on create database.
+Copy and save the credentials, which are being displayed after creating the database. You need these credentials to connect to your database in the App.
+Further instructions are in this Readme in the 'Set up project' section. Now you can add your data by using the following schema.
+If you want the initial state of the project, navigate to the Project folder databasefiles (Route/app/databasefiles). In this folder are the JSON files, that can be easily imported into your database.
 
 ### Set up Database
 
@@ -208,7 +207,7 @@ User data to be inserted at _route/userList_: Currently a Mockup is being used.
  ]
 ```
 
-### Setting up the project
+### Set up project
 
 To use the database you just created, you need to add a config file to the app folder (Route/app).
 Create following 'firebase.json' file with the credentials of your database:
