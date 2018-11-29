@@ -32,24 +32,29 @@ class CourseKeywords extends Component {
         }
         const strKeywords = this.mapKeywords(keywordArr);
         console.log(strKeywords);
+        console.log(ageKeyword);
 
         let courses = [];
         let numberOfCourses = 0;
 
         const courseResponse = await ajax.fetchCoursesByKeyword(strKeywords);
-        if (ageKeyword === undefined) {
-            courses = courseResponse.data;
-            numberOfCourses = courses.length;
-        } else {
-            courseResponse.data.map((coursesData) => {
-                console.log(coursesData.keywords);
-                for
-                if (coursesData.keywords.includes('{@id: "https://linkedcourses-api.test.hel.ninja/linkedcourses-test/v1/keyword/'+ageKeyword+'/"}')) {
-                    courses.push(coursesData);
-                    numberOfCourses++;
+        console.log(courseResponse.data);
+        courseResponse.data.map((courseData) => {
+            if (courseData.name.en !== undefined && courseData.name.en !== null) {
+                if (ageKeyword !== undefined)
+                {
+                    if (courseData.keywords.includes(ageKeyword)){
+                        console.log(courseData.name.en);
+                        courses.push(courseData);
+                        numberOfCourses++;
+                    }
                 }
-            });
-        }
+                console.log(courseData.name.en);
+                courses.push(courseData);
+                numberOfCourses++;
+            }
+        });
+
         console.log(courses);
 
         const randIndex = Math.floor(Math.random() * numberOfCourses);
