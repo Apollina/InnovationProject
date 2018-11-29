@@ -25,7 +25,8 @@ class CourseItem extends Component {
         console.log(this.props.course.id);
     };
 
-    getLevelSystemData() {
+    getLevelSystemData = () => {
+        alert('You successfully enrolled!');
         firebase.database().ref('levelsystem/').once('value', (snapshot) => {
             this.setState({levelSystem: snapshot.val()});
         }).then(() => {
@@ -34,7 +35,7 @@ class CourseItem extends Component {
             //error callback
             console.log('[CourseItem] DB getLevelSystemData() error ', error)
         })
-    }
+    };
 
     getUserInfo() {
         firebase.database().ref('userList/').once('value', (snapshot) => {
@@ -66,15 +67,6 @@ class CourseItem extends Component {
             updates['/userLevel'] = this.state.currentUserLevel;
 
             return firebase.database().ref('userList/0').update(updates);
-            /*
-            firebase.database().ref('userList/0').set({
-                points: this.state.currentUserPoints,
-                userLevel: this.state.currentUserLevel
-            }).catch((error) => {
-                //error callback
-                console.log('[CourseItem] DB savePointsDB() error ', error)
-            })
-            */
         }
     }
 
@@ -104,7 +96,7 @@ class CourseItem extends Component {
                             <Text style={globalStyles.textBtn}> Learn More </Text>
                         </Button>
                         <Button bordered rounded dark style={globalStyles.enrollButton}
-                                onPress={this.getLevelSystemData()}
+                                onPress={this.getLevelSystemData}
                                 title="Enroll">
                             <Text style={globalStyles.textBtn}> Enroll </Text>
                         </Button>

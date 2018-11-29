@@ -33,7 +33,12 @@ class ProfilePage extends Component {
         }).catch((error) => {
             //error callback
             console.log('[ProfilePage] DB getUserInfo() error ', error)
-        })
+        });
+        firebase.database().ref('userList/').on('value', (snapshot) => {
+            console.log(snapshot.val()[0]);
+            this.setState({userData: snapshot.val()[0]});
+            this.getLevelSystemData();
+        });
     }
 
     getLevelSystemData() {
@@ -45,11 +50,12 @@ class ProfilePage extends Component {
         }).catch((error) => {
             //error callback
             console.log('[ProfilePage] DB getLevelSystemData() error ', error)
-        })
+        });
     }
 
     mapPointsToProgress() {
         const currentLevel = this.state.userData.userLevel;
+        console.log(currentLevel + 'mapPointsToProgress');
         let levelData = {};
         //Add the description of the current level
         levelData.description = this.state.levelSystem[currentLevel - 1].description;
