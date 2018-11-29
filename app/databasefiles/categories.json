@@ -1,0 +1,85 @@
+[
+   {
+      "description":"Arts",
+      "keywords":[
+         {
+            "keyword":"fine arts",
+            "id":"yso:p2739"
+         },
+         {
+            "keyword":"literary art",
+            "id":"yso:p7969"
+         },
+         {
+            "keyword":"ceramics",
+            "id":"yso:p1420"
+         },
+         {
+            "keyword":"photographs",
+            "id":"yso:p2699"
+         },
+         {
+            "keyword":"design (artistic creation)",
+            "id":"yso:p6455"
+         },
+         {
+            "keyword":"literature",
+            "id":"yso:p8113"
+         },
+         {
+            "keyword":"graphics (visual arts)",
+            "id":"yso:p2698"
+         },
+         {
+            "keyword":"multi-art",
+            "id":"yso:p25216"
+         },
+         {
+            "keyword":"theatre",
+            "id":"yso:p2625"
+         }
+      ]
+   },
+   {
+      "description":"Sports",
+      "keywords":[
+         {
+            "keyword":"dance (performing arts)",
+            "id":"yso:p1278"
+         },
+         {
+            "keyword":"performing arts",
+            "id":"yso:p2850"
+         }
+      ]
+   },
+   {
+      "description":"Movies & Media",
+      "keywords":[
+         {
+            "keyword":"films",
+            "id":"yso:p1235"
+         },
+         {
+            "keyword":"cinema (art forms)",
+            "id":"yso:p16327"
+         },
+         {
+            "keyword":"music",
+            "id":"yso:p1808"
+         },
+         {
+            "keyword":"animation",
+            "id":"yso:p16526"
+         },
+         {
+            "keyword":"media",
+            "id":"yso:p2445"
+         },
+         {
+            "keyword":"comics",
+            "id":"yso:p1148"
+         }
+      ]
+   }
+]
