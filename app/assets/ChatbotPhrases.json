@@ -1,0 +1,28 @@
+{
+  "numberOfPhrases": 3,
+  "confirmation":[
+    "Alright, ",
+    "Ok, ",
+    "Very well, "
+  ],
+  "0_msg_welcome":[
+    "Hi, I'm Pete the penguin.",
+    "Hello, my name is Pete.",
+    "Welcome! I'm Pete."
+  ],
+  "1_msg_welcome":[
+    "I'm here to help you find fun courses for you. Just tell me a little about you.",
+    "If you answer some of my questions, I will recommend courses especially for you.",
+    "You want to discover fun courses? Then start chatting with me."
+  ],
+  "5_msg_category":[
+    "What do you like to do in your free time? Please choose a category by pressing the buttons below.",
+    "What are you interested in? Please choose a category by pressing the buttons below.",
+    "In what category are you interested in? Please choose a category by pressing the buttons below."
+  ],
+  "8_msg_search":[
+    "I am now going to search for suitable courses ...",
+    "I am searching for your courses ...",
+    "Let me look for fun courses ..."
+  ]
+}

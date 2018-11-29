@@ -3,6 +3,8 @@ import {Text, StyleSheet, View} from 'react-native';
 import ajax from '../../ajax';
 import CoursesList from './CoursesList';
 import CourseDetails from './CourseDetails';
+import LoadingWheel from "../../components/LoadingWheel";
+import PropTypes from "prop-types";
 import SearchBar from './SearchBar';
 import globalStyles from '../../styles';
 
@@ -12,15 +14,24 @@ class Courses extends Component {
     constructor() {
         super();
         this.state = {
-            courses: [],
+            courses: {},
             coursesFromSearch: [],
             images: [],
             currentCourseId: null,
         }
     }
+
+    static propTypes = {
+        filteredCourses: PropTypes.object
+    };
+
     async componentDidMount() {
-        const courses = await ajax.fetchInitialCourses();
-        this.setState({ courses });
+        if (this.props.filteredCourses !== undefined && this.props.filteredCourses !== null) {
+            this.setState({courses: this.props.filteredCourses});
+        } else {
+            const courses = await ajax.fetchInitialCourses();
+            this.setState({courses});
+        }
     }
     searchCourses = async (searchTerm) => {
         let coursesFromSearch = [];
@@ -72,9 +83,7 @@ class Courses extends Component {
             )
         } else {
         return (
-            <View style={styles.container}>
-                    <Text style={styles.header}> Course List </Text>
-            </View>
+            <LoadingWheel/>
         );
         }
     }
