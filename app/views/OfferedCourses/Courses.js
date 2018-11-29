@@ -5,6 +5,9 @@ import CoursesList from './CoursesList';
 import CourseDetails from './CourseDetails';
 import LoadingWheel from "../../components/LoadingWheel";
 import PropTypes from "prop-types";
+import SearchBar from './SearchBar';
+import globalStyles from '../../styles';
+
 
 class Courses extends Component {
 
@@ -12,6 +15,7 @@ class Courses extends Component {
         super();
         this.state = {
             courses: {},
+            coursesFromSearch: [],
             images: [],
             currentCourseId: null,
         }
@@ -29,6 +33,16 @@ class Courses extends Component {
             this.setState({courses});
         }
     }
+    searchCourses = async (searchTerm) => {
+        let coursesFromSearch = [];
+        if (searchTerm) {
+            coursesFromSearch = await ajax.fetchICoursesSearchResults(searchTerm);
+        }
+        this.setState({coursesFromSearch});
+        console.log('COURSES FROM SEARCH' + coursesFromSearch)
+        console.log('COURSES FROM SEARCH LENGTH' + Object.keys(this.state.coursesFromSearch).length)
+    };
+
 
     setCurrentCourse = (courseId) => {
         this.setState({
@@ -48,12 +62,30 @@ class Courses extends Component {
         if (this.state.currentCourseId) {
             return <CourseDetails initialCourseData={this.currentCourse()} onBack={this.unsetCurrentCourse}/>;
         }
-        if (Object.keys(this.state.courses).length > 0) {
-            return <CoursesList courses={this.state.courses.data} onItemPress={this.setCurrentCourse}/>
-        }
+        const coursesToDisplay =
+            Object.keys(this.state.coursesFromSearch).length > 0 ? this.state.coursesFromSearch.data : this.state.courses.data;
+        console.log(this.state.coursesFromSearch.data);
+        console.log(coursesToDisplay);
+        //console.log(Object.keys(coursesToDisplay.data));
+        if (Object.keys(this.state.coursesFromSearch).length > 0) {
+            return (
+                <View style={globalStyles.screen}>
+                <SearchBar searchCourses={this.searchCourses}/>
+                <CoursesList courses={this.state.coursesFromSearch.data} onItemPress={this.setCurrentCourse}/>
+                </View>
+            )
+        } else if (Object.keys(this.state.courses).length > 0) {
+            return (
+                <View style={globalStyles.screen}>
+                    <SearchBar searchCourses={this.searchCourses}/>
+                    <CoursesList courses={this.state.courses.data} onItemPress={this.setCurrentCourse}/>
+                </View>
+            )
+        } else {
         return (
             <LoadingWheel/>
         );
+        }
     }
 }
 

@@ -32,6 +32,16 @@ export default {
         }
     },
 
+    async fetchICoursesSearchResults(searchTerm) {
+        try {
+            const response = await fetch(apiHost + '/event/?text=' + searchTerm);
+            const responseJson = await response.json();
+            return responseJson;
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
     async fetchCoursesByKeyword(keyword) {
         try {
             let response = await fetch(apiHost + '/event/?keyword='+keyword);

@@ -15,10 +15,9 @@ class CourseDetails extends Component {
         course: this.props.initialCourseData,
     };
     async componentDidMount() {
-        const fullDeal = await ajax.fetchICourseDetails(this.state.course.id);
-        console.log('FULL DEAL' + fullDeal);
+        const fullCourse = await ajax.fetchICourseDetails(this.state.course.id);
         this.setState({
-            deal: fullDeal,
+            course: fullCourse,
         })
 
     }
