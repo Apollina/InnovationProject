@@ -1,52 +1,58 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Image, View } from 'react-native'
 import { Text } from 'native-base'
 import * as Progress from 'react-native-progress'
 import styles from '../../styles';
 import RenderCourses from './RenderCourses';
+import PropTypes from "prop-types";
 
-const ProfileInfo = props => {
-    const {stateData: {
-        nickName, signInDate, userLevel, levelProgression, coursesVisited, activeCourses
-        }
-    } = props;
-    return (
-        <View >
-            <Text style={styles.H1}>
-                {nickName}
-            </Text>
-            <View style={styles.infoWrapper}>
-                <Image source={{uri: 'http://placekitten.com/320/180'}} style={styles.profilePicture} />
-                <View style={styles.textWrapper}>
-                    <Text style={styles.H2}>Member since</Text>
-                    <Text style={styles.smallText}>{signInDate}</Text>
+class ProfileInfo extends Component {
+    static propTypes = {
+        userData: PropTypes.object.isRequired,
+        levelData: PropTypes.object.isRequired
+    };
+
+    render() {
+        console.log(this.props.levelData);
+        return (
+            <View>
+                <Text style={styles.H1}>
+                    {this.props.userData.nickName}
+                </Text>
+                <View style={styles.infoWrapper}>
+                    <Image source={{uri: 'http://placekitten.com/320/180'}} style={styles.profilePicture}/>
+                    <View style={styles.textWrapper}>
+                        <Text style={styles.H2}>Member since</Text>
+                        <Text style={styles.smallText}>{this.props.userData.signInDate}</Text>
+                    </View>
                 </View>
-            </View>
-            <Text style={styles.H1}>
-                Level {userLevel}
-            </Text>
-            <Text>
-                Level progress
-            </Text>
-            <Progress.Bar style={styles.progressBar} progress={levelProgression} height={10} width={null} borderWidth={2} borderColor={'black'} borderRadius={10}/>
-            {coursesVisited && coursesVisited.length &&       
+                <Text style={styles.H1}>
+                    Level {this.props.userData.userLevel}: {this.props.levelData.description}
+                </Text>
+                <Text>
+                    {this.props.levelData.pointsTillLevelUp == 0 ? 'Max-Level reached!' : this.props.levelData.pointsTillLevelUp +' points till next level up.'}
+                </Text>
+                <Progress.Bar style={styles.progressBar} progress={this.props.levelData.progression} height={10} width={null}
+                              borderWidth={2} borderColor={'black'} borderRadius={10}/>
+                {this.props.userData.coursesVisited && this.props.userData.coursesVisited.length &&
                 <View>
                     <Text style={styles.courseHeader}>
                         Last course locations visited
                     </Text>
-                    <RenderCourses coursesToMap={coursesVisited} />
+                    <RenderCourses coursesToMap={this.props.userData.coursesVisited}/>
                 </View>
-            }
-            {activeCourses && activeCourses.length &&
+                }
+                {this.props.userData.activeCourses && this.props.userData.activeCourses.length &&
                 <View>
                     <Text style={styles.courseHeader}>
                         Active courses
                     </Text>
-                    <RenderCourses coursesToMap={activeCourses} />
+                    <RenderCourses coursesToMap={this.props.userData.activeCourses}/>
                 </View>
-            }
-        </View>
-    );
+                }
+            </View>
+        );
+    }
 }
 
 export default ProfileInfo;
