@@ -1,0 +1,32 @@
+[
+   {
+      "level":"1",
+      "points":0,
+      "description":"Newcomer"
+   },
+   {
+      "level":"2",
+      "points":500,
+      "description":"Baby Penguin"
+   },
+   {
+      "level":"3",
+      "points":1000,
+      "description":"Penguin"
+   },
+   {
+      "level":"4",
+      "points":2500,
+      "description":"Advanced Penguin"
+   },
+   {
+      "level":"5",
+      "points":5500,
+      "description":"Pro Penguin"
+   },
+   {
+      "level":"6",
+      "points":10000,
+      "description":"The best Penguin"
+   }
+]

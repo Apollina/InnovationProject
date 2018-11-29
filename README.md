@@ -126,9 +126,106 @@ After cloning this repository run
 npm install
 ```
 
-## Firebase stuff
+## Firebase
 
-By using this JSON-schema, you have to set up your own Firebase database to handle the user related data.
+### Installation and configuration
+
+Prerequisite: A google account.
+
+Open the [Firebase console](https://console.firebase.google.com/) and sign in with your google account if you aren't already logged in.
+Choose "Add Project" and give your project a name. Modify the project id, if you want to change the route of your Project.
+After the project was created, click in the Developer section on create database.
+Now you can add your data by using the following schema.
+If you want the initial state of the project, in the Project folder databasefiles (Route/app/databasefiles) are JSON files to be easily imported into your database.
+
+### Set up Database
+
+By using this JSON-schema, you have to set up your own Firebase database to handle the user related data and grouping keywords.
+
+Category data to be inserted at _route/categories_:
+```
+[
+   {
+      "description":"string",
+      "keywords":[
+         {
+            "keyword":"string",
+            "id":"string"
+         }
+      ]
+   }
+]
+```
+
+Agecategory data to be inserted at _route/ageCategories_:
+```
+[
+   {
+      "description":"string",
+      "keywords":[
+         {
+            "keyword":"string",
+            "id":"string"
+         }
+      ]
+   }
+]
+```
+
+Level data to be inserted at _route/levelsystem_:
+```
+[
+   {
+      "level":"string",
+      "points":integer,
+      "description":"string"
+   }
+]
+```
+
+User data to be inserted at _route/userList_: Currently a Mockup is being used.
+```
+[
+   {
+      "nickName":"string",
+      "signInDate":"string",
+      "userLevel":integer,
+      "points":integer,
+      "coursesVisited":[
+         {
+            "courseName":"string",
+            "courseLocation":"string",
+            "courseDate":"string"
+         }
+      ],
+      "activeCourses":[
+         {
+            "courseName":"string",
+            "courseLocation":"string"
+         }
+      ]
+   }
+ ]
+```
+
+### Setting up the project
+
+To use the database you just created, you need to add a config file to the app folder (Route/app).
+Create following 'firebase.json' file with the credentials of your database:
+```
+import firebase from 'firebase';
+
+const config = {
+    apiKey: "string",
+    authDomain: "string",
+    databaseURL: "string",
+    projectId: "string",
+    storageBucket: "string",
+    messagingSenderId: "string"
+};
+firebase.initializeApp(config);
+export default !firebase.apps.length ? firebase.initializeApp(config) : firebase.app();
+```
 
 ## Running with Xcode iOS simulator
 
