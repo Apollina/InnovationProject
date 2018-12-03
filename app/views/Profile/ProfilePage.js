@@ -87,6 +87,21 @@ class ProfilePage extends Component {
         return firebase.database().ref('userList/0').update(updates);
     };
 
+    updateUserData = () => {
+        this.setState({showEditing: !this.state.showEditing});
+        let updates = {};
+        console.log(this.state.userData.nickName);
+        updates['/nickName'] = this.state.userData.nickName;
+        //updates['/userLevel'] = startLevel;
+        return firebase.database().ref('userList/0').update(updates);
+    };
+
+    cancelProfileEdit = () => {
+        this.setState({showEditing: !this.state.showEditing});
+        //reset State to UserData from DB
+        this.getUserInfo();
+    };
+
     render() {
         if (this.state.isLoading) {
             return <LoadingWheel/>
@@ -113,7 +128,13 @@ class ProfilePage extends Component {
                                         flex: 1,
                                         fontSize: 20
                                     }}
-                                    onChangeText={(nickName) => this.setState({nickName})}
+                                    onChangeText={
+                                        (nickName) => this.setState(prevState => ({
+                                            userData: {
+                                                ...prevState.userData,
+                                                nickName: nickName
+                                            }
+                                        }))}
                                     value={this.state.userData.nickName}
                                     maxLength={20}
                                 />
@@ -162,10 +183,26 @@ class ProfilePage extends Component {
                             }
                         </View>
                         }
-                        <Button bordered rounded dark style={styles.editButton}
-                                onPress={() => this.setState({showEditing: !this.state.showEditing})}>
-                            {this.state.showEditing ? <Text> Save changes </Text> : <Text> Edit </Text>}
-                        </Button>
+                        {this.state.showEditing &&
+                        <View style={styles.btnWrapper}>
+                            <Button bordered rounded dark style={styles.editButton}
+                                    onPress={this.updateUserData}
+                                    title="Save Changes">
+                                <Text> Save Changes </Text>
+                            </Button>
+                            <Button bordered rounded dark style={styles.editButton}
+                                    onPress={this.cancelProfileEdit}
+                                    title="Cancel">
+                                <Text> Cancel </Text>
+                            </Button>
+                        </View>
+                    }
+                        {!this.state.showEditing &&
+                            <Button bordered rounded dark style={styles.editButton}
+                                    onPress={() => this.setState({showEditing: !this.state.showEditing})}>
+                                    <Text> Edit Profile </Text>
+                            </Button>
+                        }
                     </ScrollView>
                 </Container>
             );
