@@ -63,7 +63,7 @@ class CourseItem extends Component {
 
             //Update the first user
             let updates = {};
-            updates['/points/'] = this.state.currentUserPoints;
+            updates['/points'] = this.state.currentUserPoints;
             updates['/userLevel'] = this.state.currentUserLevel;
 
             return firebase.database().ref('userList/0').update(updates);

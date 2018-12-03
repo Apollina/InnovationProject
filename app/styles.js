@@ -19,7 +19,7 @@ export default styles = StyleSheet.create({
         marginTop: 300,
     },
     pageContainer: {
-        marginTop: 60
+        marginTop: 0
     },
     profilePicture: {
         marginRight: 10,
@@ -106,7 +106,7 @@ export default styles = StyleSheet.create({
         flex: 1
     },
     listOfCourses: {
-        width: '100%',
+        width: '100%'
     },
     course: {
         marginHorizontal: 12,

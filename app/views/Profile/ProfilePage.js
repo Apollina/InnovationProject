@@ -6,6 +6,7 @@ import styles from '../../styles';
 import firebase from '../../firebase';
 import ProfileInfo from './ProfileInfo';
 import RenderCourses from './RenderCourses';
+import LoadingWheel from "../../components/LoadingWheel";
 
 class ProfilePage extends Component {
     constructor(props) {
@@ -76,13 +77,30 @@ class ProfilePage extends Component {
         this.setState({isLoading: false});
     }
 
+    resetLevelData = () => {
+        const startPoints = 0;
+        const startLevel = 1;
+
+        let updates = {};
+        updates['/points'] = startPoints;
+        updates['/userLevel'] = startLevel;
+        return firebase.database().ref('userList/0').update(updates);
+    };
+
     render() {
         if (this.state.isLoading) {
-            return <Text>Loading ...</Text>
+            return <LoadingWheel/>
         } else {
             return (
                 <Container style={styles.pageContainer}>
                     <ScrollView style={styles.viewWrapper}>
+                        <View style={styles.btnWrapper}>
+                            <Button bordered rounded dark style={styles.editButton}
+                                    onPress={this.resetLevelData}
+                                    title="Reset User Level">
+                                <Text style={styles.textBtn}> Reset User Level </Text>
+                            </Button>
+                        </View>
                         {!this.state.showEditing &&
                         <ProfileInfo userData={this.state.userData} levelData={this.state.levelData}/>
                         }
