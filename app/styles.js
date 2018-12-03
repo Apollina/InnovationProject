@@ -23,7 +23,7 @@ export default styles = StyleSheet.create({
     },
     profilePicture: {
         marginRight: 10,
-        height: 90,
+        height: 120,
         width: 160,
         borderWidth: 1,
         borderRadius: 15,
@@ -85,6 +85,12 @@ export default styles = StyleSheet.create({
     smallText: {
         fontSize: 15,
         paddingBottom: 10
+    },
+    smallItalicText: {
+        fontSize: 15,
+        paddingTop: 5,
+        paddingBottom: 5,
+        fontStyle: 'italic'
     },
     reallySmallText: {
         fontSize: 5

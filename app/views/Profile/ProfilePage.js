@@ -16,7 +16,6 @@ class ProfilePage extends Component {
             userData: {},
             levelData: {},
             levelSystem: [],
-            date: new Date(),
             isLoading: true
         };
     }
@@ -27,7 +26,6 @@ class ProfilePage extends Component {
 
     getUserInfo() {
         firebase.database().ref('userList/').once('value', (snapshot) => {
-            console.log(snapshot.val()[0]);
             this.setState({userData: snapshot.val()[0]});
         }).then(() => {
             this.getLevelSystemData();
@@ -36,7 +34,6 @@ class ProfilePage extends Component {
             console.log('[ProfilePage] DB getUserInfo() error ', error)
         });
         firebase.database().ref('userList/').on('value', (snapshot) => {
-            console.log(snapshot.val()[0]);
             this.setState({userData: snapshot.val()[0]});
             this.getLevelSystemData();
         });
@@ -44,7 +41,6 @@ class ProfilePage extends Component {
 
     getLevelSystemData() {
         firebase.database().ref('levelsystem/').once('value', (snapshot) => {
-            console.log(snapshot.val());
             this.setState({levelSystem: snapshot.val()});
         }).then(() => {
             this.mapPointsToProgress();
@@ -56,7 +52,6 @@ class ProfilePage extends Component {
 
     mapPointsToProgress() {
         const currentLevel = this.state.userData.userLevel;
-        console.log(currentLevel + 'mapPointsToProgress');
         let levelData = {};
         //Add the description of the current level
         levelData.description = this.state.levelSystem[currentLevel - 1].description;
@@ -68,11 +63,9 @@ class ProfilePage extends Component {
         } else {
             //DB Index starts with 0
             const levelProgress = this.state.userData.points / this.state.levelSystem[currentLevel].points;
-            console.log(levelProgress);
             levelData.progression = levelProgress;
             levelData.pointsTillLevelUp = this.state.levelSystem[currentLevel].points - this.state.userData.points;
         }
-        console.log(this.state.levelData);
         this.setState({levelData: levelData});
         this.setState({isLoading: false});
     }
@@ -90,9 +83,9 @@ class ProfilePage extends Component {
     updateUserData = () => {
         this.setState({showEditing: !this.state.showEditing});
         let updates = {};
-        console.log(this.state.userData.nickName);
+        console.log(this.state.userData);
         updates['/nickName'] = this.state.userData.nickName;
-        //updates['/userLevel'] = startLevel;
+        updates['/birthDate'] = this.state.userData.birthDate;
         return firebase.database().ref('userList/0').update(updates);
     };
 
@@ -150,12 +143,12 @@ class ProfilePage extends Component {
                                         flex: 1,
                                         alignItems: 'center'
                                     }}
-                                    date={this.state.date}
+                                    date={new Date(this.state.userData.birthDate)}
                                     mode="date"
                                     placeholder="select date"
                                     format="YYYY-MM-DD"
                                     minDate="1900-01-01"
-                                    maxDate={this.state.date}
+                                    maxDate={new Date()}
                                     confirmBtnText="Confirm"
                                     cancelBtnText="Cancel"
                                     customStyles={{
@@ -163,9 +156,13 @@ class ProfilePage extends Component {
                                             display: 'none'
                                         }
                                     }}
-                                    onDateChange={(date) => {
-                                        this.setState({date: date})
-                                    }}
+                                    onDateChange={
+                                        (date) => this.setState(prevState => ({
+                                            userData: {
+                                                ...prevState.userData,
+                                                birthDate: date.toString()
+                                            }
+                                        }))}
                                 />
                             </View>
                             <Text style={styles.smallText}>
@@ -196,12 +193,12 @@ class ProfilePage extends Component {
                                 <Text> Cancel </Text>
                             </Button>
                         </View>
-                    }
+                        }
                         {!this.state.showEditing &&
-                            <Button bordered rounded dark style={styles.editButton}
-                                    onPress={() => this.setState({showEditing: !this.state.showEditing})}>
-                                    <Text> Edit Profile </Text>
-                            </Button>
+                        <Button bordered rounded dark style={styles.editButton}
+                                onPress={() => this.setState({showEditing: !this.state.showEditing})}>
+                            <Text> Edit Profile </Text>
+                        </Button>
                         }
                     </ScrollView>
                 </Container>
