@@ -33,6 +33,7 @@ class Courses extends Component {
             this.setState({courses});
         }
     }
+
     searchCourses = async (searchTerm) => {
         let coursesFromSearch = [];
         if (searchTerm) {
@@ -70,21 +71,28 @@ class Courses extends Component {
         if (Object.keys(this.state.coursesFromSearch).length > 0) {
             return (
                 <View style={globalStyles.screen}>
-                <SearchBar searchCourses={this.searchCourses}/>
-                <CoursesList courses={this.state.coursesFromSearch.data} onItemPress={this.setCurrentCourse}/>
+                    <SearchBar searchCourses={this.searchCourses}/>
+                    <CoursesList courses={this.state.coursesFromSearch.data} onItemPress={this.setCurrentCourse}/>
                 </View>
             )
         } else if (Object.keys(this.state.courses).length > 0) {
-            return (
-                <View style={globalStyles.screen}>
-                    <SearchBar searchCourses={this.searchCourses}/>
-                    <CoursesList courses={this.state.courses.data} onItemPress={this.setCurrentCourse}/>
-                </View>
-            )
+            //Don't show SearchBar when displaying the course in the chatbot
+            if (this.props.filteredCourses !== undefined && this.props.filteredCourses !== null) {
+                return (
+                    <View style={globalStyles.screen}>
+                        <CoursesList courses={this.state.courses.data} onItemPress={this.setCurrentCourse}/>
+                    </View>
+                )
+            } else {
+                return (
+                    <View style={globalStyles.screen}>
+                        <SearchBar searchCourses={this.searchCourses}/>
+                        <CoursesList courses={this.state.courses.data} onItemPress={this.setCurrentCourse}/>
+                    </View>
+                )
+            }
         } else {
-        return (
-            <LoadingWheel/>
-        );
+            return (<LoadingWheel/>);
         }
     }
 }

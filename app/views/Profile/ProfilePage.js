@@ -83,7 +83,7 @@ class ProfilePage extends Component {
     updateUserData = () => {
         this.setState({showEditing: !this.state.showEditing});
         let updates = {};
-        console.log(this.state.userData);
+
         updates['/nickName'] = this.state.userData.nickName;
         updates['/birthDate'] = this.state.userData.birthDate;
         return firebase.database().ref('userList/0').update(updates);
