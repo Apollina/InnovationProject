@@ -44,12 +44,10 @@ class CourseKeywords extends Component {
                 if (ageKeyword !== undefined)
                 {
                     if (courseData.keywords.includes(ageKeyword)){
-                        console.log(courseData.name.en);
                         courses.push(courseData);
                         numberOfCourses++;
                     }
                 }
-                console.log(courseData.name.en);
                 courses.push(courseData);
                 numberOfCourses++;
             }

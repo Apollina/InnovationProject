@@ -1,4 +1,4 @@
-const apiHost = 'https://linkedcourses-api.test.hel.ninja/linkedcourses-test/v1'
+const apiHost = 'https://linkedcourses-api.test.hel.ninja/linkedcourses-test/v1';
 
 export default {
     async fetchInitialCourses() {
@@ -24,7 +24,7 @@ export default {
 
     async fetchICourseDetails(courseId) {
         try {
-            const response = await fetch(apiHost + '/event/?format=json' + courseId);
+            const response = await fetch(apiHost + '/event/' + courseId);
             const responseJson = await response.json();
             return responseJson;
         } catch (error) {
