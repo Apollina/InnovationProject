@@ -22,22 +22,23 @@ class Courses extends Component {
     }
 
     static propTypes = {
-        filteredCourses: PropTypes.object
+        filteredCourses: PropTypes.array
     };
 
     async componentDidMount() {
         if (this.props.filteredCourses !== undefined && this.props.filteredCourses !== null) {
             this.setState({courses: this.props.filteredCourses});
         } else {
-            const courseResponse = await ajax.fetchInitialCourses();
-            //Filter courses to only get english courses
             let coursesEN = [];
-            courseResponse.data.map((courseData) => {
-                if (courseData.name.en !== undefined && courseData.name.en !== null && courseData.description.en !== undefined && courseData.description.en !== null) {
-                    coursesEN.push(courseData);
-                }
-            });
-
+            for (let i=1; i<3; i++){
+                const courseResponse = await ajax.fetchInitialCourses(i);
+                //Filter courses to only get english courses
+                courseResponse.data.map((courseData) => {
+                    if (courseData.name.en !== undefined && courseData.name.en !== null && courseData.description.en !== undefined && courseData.description.en !== null) {
+                        coursesEN.push(courseData);
+                    }
+                });
+            }
             this.setState({courses: coursesEN});
         }
     }
@@ -70,7 +71,11 @@ class Courses extends Component {
         });
     };
     currentCourse = () => {
-        return this.state.courses.find((course) => course.id === this.state.currentCourseId);
+        if (Object.keys(this.state.coursesFromSearch).length > 0) {
+            return this.state.coursesFromSearch.find((course) => course.id === this.state.currentCourseId);
+        } else {
+            return this.state.courses.find((course) => course.id === this.state.currentCourseId);
+        }
     };
 
     render() {
@@ -79,7 +84,7 @@ class Courses extends Component {
         }
         if (this.state.currentCourseId) {
             return <CourseDetails initialCourseData={this.currentCourse()} onBack={this.unsetCurrentCourse}/>;
-        } 
+        }
         const coursesToDisplay =
             Object.keys(this.state.coursesFromSearch).length > 0 ? this.state.coursesFromSearch : this.state.courses;
         console.log(this.state.coursesFromSearch);
