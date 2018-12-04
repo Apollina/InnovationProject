@@ -13,7 +13,6 @@ class ProfileInfo extends Component {
     };
 
     render() {
-        console.log(this.props.levelData);
         return (
             <View>
                 <Text style={styles.H1}>
