@@ -24,6 +24,8 @@ class CourseDetails extends Component {
 
     render() {
         const { course } = this.state;
+        console.log('dddd');
+        console.log(this.props.initialCourseData);
 
         return (
             <ScrollView>

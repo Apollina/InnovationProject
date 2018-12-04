@@ -1,9 +1,9 @@
-const apiHost = 'https://linkedcourses-api.test.hel.ninja/linkedcourses-test/v1'
+const apiHost = 'https://linkedcourses-api.test.hel.ninja/linkedcourses-test/v1';
 
 export default {
-    async fetchInitialCourses() {
+    async fetchInitialCourses(page) {
         try {
-            const response = await fetch(apiHost + '/event/?format=json');
+            const response = await fetch(apiHost + '/event/?page' + page);
             const responseJson = await response.json();
             console.log(Object.keys(responseJson).length);
             console.log('ID' + responseJson.data);
@@ -24,7 +24,7 @@ export default {
 
     async fetchICourseDetails(courseId) {
         try {
-            const response = await fetch(apiHost + '/event/?format=json' + courseId);
+            const response = await fetch(apiHost + '/event/' + courseId);
             const responseJson = await response.json();
             return responseJson;
         } catch (error) {
@@ -42,9 +42,9 @@ export default {
         }
     },
 
-    async fetchCoursesByKeyword(keyword) {
+    async fetchCoursesByKeyword(keyword, page) {
         try {
-            let response = await fetch(apiHost + '/event/?keyword='+keyword);
+            let response = await fetch(apiHost + '/event/?keyword='+keyword+'&page'+page);
             let responseJson = await response.json();
             return responseJson;
         } catch (error) {

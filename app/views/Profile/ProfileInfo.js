@@ -13,17 +13,18 @@ class ProfileInfo extends Component {
     };
 
     render() {
-        console.log(this.props.levelData);
         return (
             <View>
                 <Text style={styles.H1}>
                     {this.props.userData.nickName}
                 </Text>
                 <View style={styles.infoWrapper}>
-                    <Image source={{uri: 'http://placekitten.com/320/180'}} style={styles.profilePicture}/>
+                    <Image source={{uri: 'http://c1.peakpx.com/wallpaper/515/960/868/trekking-hiking-mountaineering-wallpaper.jpg'}} style={styles.profilePicture}/>
                     <View style={styles.textWrapper}>
-                        <Text style={styles.H2}>Member since</Text>
+                        <Text style={styles.smallItalicText}>Member since</Text>
                         <Text style={styles.smallText}>{this.props.userData.signInDate}</Text>
+                        <Text style={styles.smallItalicText}>Day of Birth</Text>
+                        <Text style={styles.smallText}>{this.props.userData.birthDate}</Text>
                     </View>
                 </View>
                 <Text style={styles.H1}>

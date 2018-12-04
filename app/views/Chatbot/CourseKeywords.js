@@ -37,23 +37,22 @@ class CourseKeywords extends Component {
         let courses = [];
         let numberOfCourses = 0;
 
-        const courseResponse = await ajax.fetchCoursesByKeyword(strKeywords);
-        console.log(courseResponse.data);
-        courseResponse.data.map((courseData) => {
-            if (courseData.name.en !== undefined && courseData.name.en !== null) {
-                if (ageKeyword !== undefined)
-                {
-                    if (courseData.keywords.includes(ageKeyword)){
-                        console.log(courseData.name.en);
-                        courses.push(courseData);
-                        numberOfCourses++;
+        for (let i=1; i<3; i++) {
+            const courseResponse = await ajax.fetchCoursesByKeyword(strKeywords);
+            console.log(courseResponse.data);
+            courseResponse.data.map((courseData) => {
+                if (courseData.name.en !== undefined && courseData.name.en !== null) {
+                    if (ageKeyword !== undefined) {
+                        if (courseData.keywords.includes(ageKeyword)) {
+                            courses.push(courseData);
+                            numberOfCourses++;
+                        }
                     }
+                    courses.push(courseData);
+                    numberOfCourses++;
                 }
-                console.log(courseData.name.en);
-                courses.push(courseData);
-                numberOfCourses++;
-            }
-        });
+            });
+        }
 
         console.log(courses);
 
@@ -86,11 +85,14 @@ class CourseKeywords extends Component {
     }
 
     render() {
-        let courseArr = {'data': [this.state.course]};
+
         if (this.state.course === undefined || this.state.courseId === undefined) {
             return <LoadingWheel/>
         }
         else {
+            const courseArr =[this.state.course];
+            console.log(courseArr);
+            console.log('this.state.course');
             return <Courses filteredCourses={courseArr}/>
         }
     }

@@ -19,11 +19,11 @@ export default styles = StyleSheet.create({
         marginTop: 300,
     },
     pageContainer: {
-        marginTop: 60
+        marginTop: 0
     },
     profilePicture: {
         marginRight: 10,
-        height: 90,
+        height: 120,
         width: 160,
         borderWidth: 1,
         borderRadius: 15,
@@ -86,6 +86,12 @@ export default styles = StyleSheet.create({
         fontSize: 15,
         paddingBottom: 10
     },
+    smallItalicText: {
+        fontSize: 15,
+        paddingTop: 5,
+        paddingBottom: 5,
+        fontStyle: 'italic'
+    },
     reallySmallText: {
         fontSize: 5
     },
@@ -106,7 +112,7 @@ export default styles = StyleSheet.create({
         flex: 1
     },
     listOfCourses: {
-        width: '100%',
+        width: '100%'
     },
     course: {
         marginHorizontal: 12,

@@ -6,6 +6,7 @@ import styles from '../../styles';
 import firebase from '../../firebase';
 import ProfileInfo from './ProfileInfo';
 import RenderCourses from './RenderCourses';
+import LoadingWheel from "../../components/LoadingWheel";
 
 class ProfilePage extends Component {
     constructor(props) {
@@ -15,7 +16,6 @@ class ProfilePage extends Component {
             userData: {},
             levelData: {},
             levelSystem: [],
-            date: new Date(),
             isLoading: true
         };
     }
@@ -26,7 +26,6 @@ class ProfilePage extends Component {
 
     getUserInfo() {
         firebase.database().ref('userList/').once('value', (snapshot) => {
-            console.log(snapshot.val()[0]);
             this.setState({userData: snapshot.val()[0]});
         }).then(() => {
             this.getLevelSystemData();
@@ -35,7 +34,6 @@ class ProfilePage extends Component {
             console.log('[ProfilePage] DB getUserInfo() error ', error)
         });
         firebase.database().ref('userList/').on('value', (snapshot) => {
-            console.log(snapshot.val()[0]);
             this.setState({userData: snapshot.val()[0]});
             this.getLevelSystemData();
         });
@@ -43,7 +41,6 @@ class ProfilePage extends Component {
 
     getLevelSystemData() {
         firebase.database().ref('levelsystem/').once('value', (snapshot) => {
-            console.log(snapshot.val());
             this.setState({levelSystem: snapshot.val()});
         }).then(() => {
             this.mapPointsToProgress();
@@ -55,7 +52,6 @@ class ProfilePage extends Component {
 
     mapPointsToProgress() {
         const currentLevel = this.state.userData.userLevel;
-        console.log(currentLevel + 'mapPointsToProgress');
         let levelData = {};
         //Add the description of the current level
         levelData.description = this.state.levelSystem[currentLevel - 1].description;
@@ -67,22 +63,52 @@ class ProfilePage extends Component {
         } else {
             //DB Index starts with 0
             const levelProgress = this.state.userData.points / this.state.levelSystem[currentLevel].points;
-            console.log(levelProgress);
             levelData.progression = levelProgress;
             levelData.pointsTillLevelUp = this.state.levelSystem[currentLevel].points - this.state.userData.points;
         }
-        console.log(this.state.levelData);
         this.setState({levelData: levelData});
         this.setState({isLoading: false});
     }
 
+    resetLevelData = () => {
+        const startPoints = 0;
+        const startLevel = 1;
+
+        let updates = {};
+        updates['/points'] = startPoints;
+        updates['/userLevel'] = startLevel;
+        return firebase.database().ref('userList/0').update(updates);
+    };
+
+    updateUserData = () => {
+        this.setState({showEditing: !this.state.showEditing});
+        let updates = {};
+
+        updates['/nickName'] = this.state.userData.nickName;
+        updates['/birthDate'] = this.state.userData.birthDate;
+        return firebase.database().ref('userList/0').update(updates);
+    };
+
+    cancelProfileEdit = () => {
+        this.setState({showEditing: !this.state.showEditing});
+        //reset State to UserData from DB
+        this.getUserInfo();
+    };
+
     render() {
         if (this.state.isLoading) {
-            return <Text>Loading ...</Text>
+            return <LoadingWheel/>
         } else {
             return (
                 <Container style={styles.pageContainer}>
                     <ScrollView style={styles.viewWrapper}>
+                        <View style={styles.btnWrapper}>
+                            <Button bordered rounded dark style={styles.editButton}
+                                    onPress={this.resetLevelData}
+                                    title="Reset User Level">
+                                <Text style={styles.textBtn}> Reset User Level </Text>
+                            </Button>
+                        </View>
                         {!this.state.showEditing &&
                         <ProfileInfo userData={this.state.userData} levelData={this.state.levelData}/>
                         }
@@ -95,7 +121,13 @@ class ProfilePage extends Component {
                                         flex: 1,
                                         fontSize: 20
                                     }}
-                                    onChangeText={(nickName) => this.setState({nickName})}
+                                    onChangeText={
+                                        (nickName) => this.setState(prevState => ({
+                                            userData: {
+                                                ...prevState.userData,
+                                                nickName: nickName
+                                            }
+                                        }))}
                                     value={this.state.userData.nickName}
                                     maxLength={20}
                                 />
@@ -111,12 +143,12 @@ class ProfilePage extends Component {
                                         flex: 1,
                                         alignItems: 'center'
                                     }}
-                                    date={this.state.date}
+                                    date={new Date(this.state.userData.birthDate)}
                                     mode="date"
                                     placeholder="select date"
                                     format="YYYY-MM-DD"
                                     minDate="1900-01-01"
-                                    maxDate={this.state.date}
+                                    maxDate={new Date()}
                                     confirmBtnText="Confirm"
                                     cancelBtnText="Cancel"
                                     customStyles={{
@@ -124,9 +156,13 @@ class ProfilePage extends Component {
                                             display: 'none'
                                         }
                                     }}
-                                    onDateChange={(date) => {
-                                        this.setState({date: date})
-                                    }}
+                                    onDateChange={
+                                        (date) => this.setState(prevState => ({
+                                            userData: {
+                                                ...prevState.userData,
+                                                birthDate: date.toString()
+                                            }
+                                        }))}
                                 />
                             </View>
                             <Text style={styles.smallText}>
@@ -144,10 +180,26 @@ class ProfilePage extends Component {
                             }
                         </View>
                         }
+                        {this.state.showEditing &&
+                        <View style={styles.btnWrapper}>
+                            <Button bordered rounded dark style={styles.editButton}
+                                    onPress={this.updateUserData}
+                                    title="Save Changes">
+                                <Text> Save Changes </Text>
+                            </Button>
+                            <Button bordered rounded dark style={styles.editButton}
+                                    onPress={this.cancelProfileEdit}
+                                    title="Cancel">
+                                <Text> Cancel </Text>
+                            </Button>
+                        </View>
+                        }
+                        {!this.state.showEditing &&
                         <Button bordered rounded dark style={styles.editButton}
                                 onPress={() => this.setState({showEditing: !this.state.showEditing})}>
-                            {this.state.showEditing ? <Text> Save changes </Text> : <Text> Edit </Text>}
+                            <Text> Edit Profile </Text>
                         </Button>
+                        }
                     </ScrollView>
                 </Container>
             );

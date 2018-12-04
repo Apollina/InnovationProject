@@ -8,6 +8,12 @@ import Keywords from '../views/Chatbot/Keywords';
 import ProfilePage from '../views/Profile/ProfilePage';
 
 export const TabNav = createBottomTabNavigator ({
+    Keywords: {
+        screen: Keywords,
+        navigationOptions: ({ navigation }) => ({
+            title: "Chat",
+        })
+    },
     CourseList: {
         screen: Courses,
         navigationOptions: ({ navigation }) => ({
@@ -19,13 +25,7 @@ export const TabNav = createBottomTabNavigator ({
         navigationOptions: ({ navigation }) => ({
             title: "Profile",
         })
-    },
-    Keywords: {
-        screen: Keywords,
-        navigationOptions: ({ navigation }) => ({
-            title: "Chat",
-        })
-    },
+    }
 }, {
     tabBarPosition: 'bottom',
     swipeEnabled: true,

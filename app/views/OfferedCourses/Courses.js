@@ -22,23 +22,39 @@ class Courses extends Component {
     }
 
     static propTypes = {
-        filteredCourses: PropTypes.object
+        filteredCourses: PropTypes.array
     };
 
     async componentDidMount() {
         if (this.props.filteredCourses !== undefined && this.props.filteredCourses !== null) {
             this.setState({courses: this.props.filteredCourses});
         } else {
-            const courses = await ajax.fetchInitialCourses();
-            this.setState({courses});
+            let coursesEN = [];
+            for (let i=1; i<3; i++){
+                const courseResponse = await ajax.fetchInitialCourses(i);
+                //Filter courses to only get english courses
+                courseResponse.data.map((courseData) => {
+                    if (courseData.name.en !== undefined && courseData.name.en !== null && courseData.description.en !== undefined && courseData.description.en !== null) {
+                        coursesEN.push(courseData);
+                    }
+                });
+            }
+            this.setState({courses: coursesEN});
         }
     }
+
     searchCourses = async (searchTerm) => {
-        let coursesFromSearch = [];
+        let coursesEN = [];
         if (searchTerm) {
-            coursesFromSearch = await ajax.fetchICoursesSearchResults(searchTerm);
+            const courseResponse = await ajax.fetchICoursesSearchResults(searchTerm);
+            courseResponse.data.map((courseData) => {
+                if (courseData.name.en !== undefined && courseData.name.en !== null && courseData.description.en !== undefined && courseData.description.en !== null) {
+                    coursesEN.push(courseData);
+                }
+            });
         }
-        this.setState({coursesFromSearch});
+
+        this.setState({coursesFromSearch: coursesEN});
         console.log('COURSES FROM SEARCH' + coursesFromSearch)
         console.log('COURSES FROM SEARCH LENGTH' + Object.keys(this.state.coursesFromSearch).length)
     };
@@ -55,36 +71,50 @@ class Courses extends Component {
         });
     };
     currentCourse = () => {
-        return this.state.courses.data.find((course) => course.id === this.state.currentCourseId);
+        if (Object.keys(this.state.coursesFromSearch).length > 0) {
+            return this.state.coursesFromSearch.find((course) => course.id === this.state.currentCourseId);
+        } else {
+            return this.state.courses.find((course) => course.id === this.state.currentCourseId);
+        }
     };
 
     render() {
+        if (this.state.courses === undefined) {
+            return (<LoadingWheel/>);
+        }
         if (this.state.currentCourseId) {
             return <CourseDetails initialCourseData={this.currentCourse()} onBack={this.unsetCurrentCourse}/>;
         }
         const coursesToDisplay =
-            Object.keys(this.state.coursesFromSearch).length > 0 ? this.state.coursesFromSearch.data : this.state.courses.data;
-        console.log(this.state.coursesFromSearch.data);
+            Object.keys(this.state.coursesFromSearch).length > 0 ? this.state.coursesFromSearch : this.state.courses;
+        console.log(this.state.coursesFromSearch);
         console.log(coursesToDisplay);
-        //console.log(Object.keys(coursesToDisplay.data));
+        //console.log(Object.keys(coursesToDisplay));
         if (Object.keys(this.state.coursesFromSearch).length > 0) {
             return (
                 <View style={globalStyles.screen}>
-                <SearchBar searchCourses={this.searchCourses}/>
-                <CoursesList courses={this.state.coursesFromSearch.data} onItemPress={this.setCurrentCourse}/>
+                    <SearchBar searchCourses={this.searchCourses}/>
+                    <CoursesList courses={this.state.coursesFromSearch} onItemPress={this.setCurrentCourse}/>
                 </View>
             )
         } else if (Object.keys(this.state.courses).length > 0) {
-            return (
-                <View style={globalStyles.screen}>
-                    <SearchBar searchCourses={this.searchCourses}/>
-                    <CoursesList courses={this.state.courses.data} onItemPress={this.setCurrentCourse}/>
-                </View>
-            )
+            //Don't show SearchBar when displaying the course in the chatbot
+            if (this.props.filteredCourses !== undefined && this.props.filteredCourses !== null) {
+                return (
+                    <View style={globalStyles.screen}>
+                        <CoursesList courses={this.state.courses} onItemPress={this.setCurrentCourse}/>
+                    </View>
+                )
+            } else {
+                return (
+                    <View style={globalStyles.screen}>
+                        <SearchBar searchCourses={this.searchCourses}/>
+                        <CoursesList courses={this.state.courses} onItemPress={this.setCurrentCourse}/>
+                    </View>
+                )
+            }
         } else {
-        return (
-            <LoadingWheel/>
-        );
+            return (<LoadingWheel/>);
         }
     }
 }
