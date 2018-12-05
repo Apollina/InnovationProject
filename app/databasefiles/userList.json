@@ -26,34 +26,5 @@
             "courseLocation":"Asiakkaankatu, Helsinki"
          }
       ]
-   },
-   {
-      "nickName":"Ben Happy",
-      "signInDate":"1.09.2018",
-      "userLevel":5,
-      "points":55500,
-      "coursesVisited":[
-         {
-            "courseName":"Taekwondo",
-            "courseLocation":"Asiakkaankatu, Helsinki",
-            "courseDate":"25.10.2018"
-         },
-         {
-            "courseName":"Pitsinnypläys",
-            "courseLocation":"Asiakkaankatu, Helsinki",
-            "courseDate":"25.10.2018"
-         },
-         {
-            "courseName":"Dance for Beginners",
-            "courseLocation":"Asiakkaankatu, Helsinki",
-            "courseDate":"02.11.2018"
-         }
-      ],
-      "activeCourses":[
-         {
-            "courseName":"Dance",
-            "courseLocation":"Asiakkaankatu, Helsinki"
-         }
-      ]
    }
 ]

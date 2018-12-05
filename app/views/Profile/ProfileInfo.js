@@ -13,6 +13,7 @@ class ProfileInfo extends Component {
     };
 
     render() {
+        console.log(this.props.userData);
         return (
             <View>
                 <Text style={styles.H1}>
