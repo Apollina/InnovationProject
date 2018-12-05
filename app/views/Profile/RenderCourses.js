@@ -11,8 +11,8 @@ const RenderCourses = props => {
                 <Text style={globalStyles.H1}>{course.courseName}</Text>
                 <View style={globalStyles.infoWrapper}>
                     <View style={globalStyles.textWrapper}>
-                        <Text style={globalStyles.smallText}>{course.courseLocation}</Text>
-                        <Text style={globalStyles.smallText}>{course.courseLocation}</Text>
+                        <Text style={globalStyles.smallText}>{course.locationName}</Text>
+                        <Text style={globalStyles.smallText}>{course.locationAddress}</Text>
                     </View>
                 </View>
             </View>

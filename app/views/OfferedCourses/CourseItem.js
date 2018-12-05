@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Text, View, Image, TouchableOpacity} from 'react-native';
+import {Text, View, Image, TouchableOpacity, Alert} from 'react-native';
 import {Button} from "native-base";
 import globalStyles from "../../styles";
 import firebase from "../../firebase";
@@ -27,10 +27,19 @@ class CourseItem extends Component {
         console.log(this.props.course.id);
     };
 
+    showEnrollmentDialog = () => {
+        Alert.alert(
+            'Course Enrollment',
+            'Do you want to enroll in this course?',
+            [
+                {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                {text: 'Enroll', onPress: this.getLevelSystemData},
+            ],
+            { cancelable: false }
+        );
+    };
+
     getLevelSystemData = () => {
-        alert('You successfully enrolled!');
-        console.log('ddd');
-        console.log(this.props.course);
         firebase.database().ref('levelsystem/').once('value', (snapshot) => {
             this.setState({levelSystem: snapshot.val()});
         }).then(() => {
@@ -80,16 +89,16 @@ class CourseItem extends Component {
         locationID = locationID.substring(startIndex + 1);
 
         const locationResponse = await ajax.fetchLocationDetails(locationID);
-        const location = 'at ' + locationResponse.name.en + ': ' + locationResponse.street_address.en + ', ' + locationResponse.address_locality.en;
-
-        this.saveCoursesDB(location);
+        const locationName = 'Location: ' + locationResponse.name.en;
+        const locationAddress = locationResponse.street_address.en + ', ' + locationResponse.address_locality.en;
+        this.saveCoursesDB(locationName, locationAddress);
     }
 
-    saveCoursesDB(location) {
+    saveCoursesDB(locationName, locationAddress) {
         //Push new course data into the courseList of the user
         let listCourses = [];
         console.log(this.state.currentUserActiveCourses);
-        const newCourse = {courseLocation: location, courseName: this.props.course.name.en};
+        const newCourse = {locationName: locationName, locationAddress: locationAddress, courseName: this.props.course.name.en};
         if (this.state.currentUserActiveCourses !== undefined && this.state.currentUserActiveCourses !== null) {
             listCourses = this.state.currentUserActiveCourses;
         }
@@ -101,7 +110,6 @@ class CourseItem extends Component {
     }
 
     render() {
-
         const {course} = this.props;
 
         return (
@@ -126,7 +134,7 @@ class CourseItem extends Component {
                             <Text style={globalStyles.textBtn}> Learn More </Text>
                         </Button>
                         <Button bordered rounded dark style={globalStyles.enrollButton}
-                                onPress={this.getLevelSystemData}
+                                onPress={this.showEnrollmentDialog}
                                 title="Enroll">
                             <Text style={globalStyles.textBtn}> Enroll </Text>
                         </Button>
