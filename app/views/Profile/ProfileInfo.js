@@ -13,6 +13,7 @@ class ProfileInfo extends Component {
     };
 
     render() {
+        console.log(this.props.userData);
         return (
             <View>
                 <Text style={styles.H1}>
@@ -48,7 +49,7 @@ class ProfileInfo extends Component {
                     <Text style={styles.courseHeader}>
                         Active courses
                     </Text>
-                    <RenderCourses coursesToMap={this.props.userData.activeCourses}/>
+                    <RenderCourses coursesToMap={this.props.userData.activeCourses} editMode={false}/>
                 </View>
                 }
             </View>

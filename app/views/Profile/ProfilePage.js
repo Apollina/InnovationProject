@@ -102,18 +102,22 @@ class ProfilePage extends Component {
             return (
                 <Container style={styles.pageContainer}>
                     <ScrollView style={styles.viewWrapper}>
-                        <View style={styles.btnWrapper}>
-                            <Button bordered rounded dark style={styles.editButton}
-                                    onPress={this.resetLevelData}
-                                    title="Reset User Level">
-                                <Text style={styles.textBtn}> Reset User Level </Text>
-                            </Button>
-                        </View>
+                        {!this.state.showEditing &&
+                        <Button bordered rounded dark style={styles.editButton}
+                                onPress={() => this.setState({showEditing: !this.state.showEditing})}>
+                            <Text> Edit Profile </Text>
+                        </Button>
+                        }
                         {!this.state.showEditing &&
                         <ProfileInfo userData={this.state.userData} levelData={this.state.levelData}/>
                         }
                         {this.state.showEditing &&
                         <View>
+                            <Button bordered rounded dark style={styles.editButton}
+                                    onPress={this.resetLevelData}
+                                    title="Reset User Level">
+                                <Text style={styles.textBtn}> Reset User Level </Text>
+                            </Button>
                             <View style={styles.inputWrapper}>
                                 <Text style={[styles.flex1, styles.inputHeader]}>Nickname: </Text>
                                 <TextInput
@@ -175,7 +179,7 @@ class ProfilePage extends Component {
                                 <Text style={styles.courseHeader}>
                                     Active courses
                                 </Text>
-                                <RenderCourses coursesToMap={this.state.userData.activeCourses}/>
+                                <RenderCourses coursesToMap={this.state.userData.activeCourses} editMode={true}/>
                             </View>
                             }
                         </View>
@@ -193,12 +197,6 @@ class ProfilePage extends Component {
                                 <Text> Cancel </Text>
                             </Button>
                         </View>
-                        }
-                        {!this.state.showEditing &&
-                        <Button bordered rounded dark style={styles.editButton}
-                                onPress={() => this.setState({showEditing: !this.state.showEditing})}>
-                            <Text> Edit Profile </Text>
-                        </Button>
                         }
                     </ScrollView>
                 </Container>

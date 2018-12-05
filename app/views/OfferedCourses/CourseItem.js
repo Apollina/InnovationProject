@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Text, View, Image, TouchableOpacity} from 'react-native';
+import {Text, View, Image, TouchableOpacity, Alert} from 'react-native';
 import {Button} from "native-base";
 import globalStyles from "../../styles";
 import firebase from "../../firebase";
+import ajax from "../../ajax";
 
 class CourseItem extends Component {
     constructor() {
@@ -12,6 +13,7 @@ class CourseItem extends Component {
             enrollPoints: 500,
             currentUserLevel: undefined,
             currentUserPoints: undefined,
+            currentUserActiveCourses: undefined,
             levelSystem: {}
         }
     }
@@ -25,12 +27,24 @@ class CourseItem extends Component {
         console.log(this.props.course.id);
     };
 
+    showEnrollmentDialog = () => {
+        Alert.alert(
+            'Course Enrollment',
+            'Do you want to enroll in this course?',
+            [
+                {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                {text: 'Enroll', onPress: this.getLevelSystemData},
+            ],
+            { cancelable: false }
+        );
+    };
+
     getLevelSystemData = () => {
-        alert('You successfully enrolled!');
         firebase.database().ref('levelsystem/').once('value', (snapshot) => {
             this.setState({levelSystem: snapshot.val()});
         }).then(() => {
             this.getUserInfo();
+            this.getCourseLocation();
         }).catch((error) => {
             //error callback
             console.log('[CourseItem] DB getLevelSystemData() error ', error)
@@ -41,6 +55,7 @@ class CourseItem extends Component {
         firebase.database().ref('userList/').once('value', (snapshot) => {
             this.setState({currentUserLevel: snapshot.val()[0].userLevel});
             this.setState({currentUserPoints: snapshot.val()[0].points});
+            this.setState({currentUserActiveCourses: snapshot.val()[0].activeCourses});
         }).then(() => {
             this.savePointsDB();
         }).catch((error) => {
@@ -50,7 +65,6 @@ class CourseItem extends Component {
     }
 
     savePointsDB() {
-        console.log(this.state.currentUserLevel);
         //Max level is 6
         if (this.state.currentUserLevel != 6) {
             const newUserPoints = this.state.currentUserPoints + this.state.enrollPoints;
@@ -68,8 +82,34 @@ class CourseItem extends Component {
         }
     }
 
-    render() {
+    async getCourseLocation() {
+        let locationID = this.props.course.location['@id'];
+        locationID = locationID.substring(0, locationID.length - 1);
+        const startIndex = locationID.lastIndexOf('/');
+        locationID = locationID.substring(startIndex + 1);
 
+        const locationResponse = await ajax.fetchLocationDetails(locationID);
+        const locationName = 'Location: ' + locationResponse.name.en;
+        const locationAddress = locationResponse.street_address.en + ', ' + locationResponse.address_locality.en;
+        this.saveCoursesDB(locationName, locationAddress);
+    }
+
+    saveCoursesDB(locationName, locationAddress) {
+        //Push new course data into the courseList of the user
+        let listCourses = [];
+        console.log(this.state.currentUserActiveCourses);
+        const newCourse = {locationName: locationName, locationAddress: locationAddress, courseName: this.props.course.name.en};
+        if (this.state.currentUserActiveCourses !== undefined && this.state.currentUserActiveCourses !== null) {
+            listCourses = this.state.currentUserActiveCourses;
+        }
+        listCourses.push(newCourse);
+
+        let updates = {};
+        updates['/activeCourses'] = listCourses;
+        return firebase.database().ref('userList/0').update(updates);
+    }
+
+    render() {
         const {course} = this.props;
 
         return (
@@ -94,7 +134,7 @@ class CourseItem extends Component {
                             <Text style={globalStyles.textBtn}> Learn More </Text>
                         </Button>
                         <Button bordered rounded dark style={globalStyles.enrollButton}
-                                onPress={this.getLevelSystemData}
+                                onPress={this.showEnrollmentDialog}
                                 title="Enroll">
                             <Text style={globalStyles.textBtn}> Enroll </Text>
                         </Button>

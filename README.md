@@ -190,17 +190,11 @@ User data to be inserted at _route/userList_: Currently a Mockup is being used.
       "signInDate":"string",
       "userLevel":integer,
       "points":integer,
-      "coursesVisited":[
-         {
-            "courseName":"string",
-            "courseLocation":"string",
-            "courseDate":"string"
-         }
-      ],
       "activeCourses":[
          {
             "courseName":"string",
-            "courseLocation":"string"
+            "locationName":"string",
+            "locationAddress":"string"
          }
       ]
    }

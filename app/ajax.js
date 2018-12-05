@@ -42,6 +42,16 @@ export default {
         }
     },
 
+    async fetchLocationDetails(locationID) {
+        try {
+            const response = await fetch(apiHost + '/place/' + locationID);
+            const responseJson = await response.json();
+            return responseJson;
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
     async fetchCoursesByKeyword(keyword, page) {
         try {
             let response = await fetch(apiHost + '/event/?keyword='+keyword+'&page'+page);
