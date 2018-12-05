@@ -49,7 +49,7 @@ class ProfileInfo extends Component {
                     <Text style={styles.courseHeader}>
                         Active courses
                     </Text>
-                    <RenderCourses coursesToMap={this.props.userData.activeCourses}/>
+                    <RenderCourses coursesToMap={this.props.userData.activeCourses} editMode={false}/>
                 </View>
                 }
             </View>
